@@ -18,6 +18,9 @@ pids/
 dist/
 build/
 
+# Uploaded media (created at runtime by multer)
+uploads/
+
 # Database files (if using local SQLite, etc.)
 *.sqlite
 *.sqlite3
