@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New announcement · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="flex flex-wrap items-center gap-3 border-b border-line bg-white px-4 py-5 sm:px-8">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2">
+          <a href="../announcements.html" class="text-muted hover:text-ink">Announcements</a><span class="text-muted" aria-hidden="true">/</span>
+        </nav>
+        <h1 id="form-title" class="text-3xl font-extrabold tracking-tight">New announcement</h1>
+      </header>
+
+      <main id="main" class="px-4 py-10 sm:px-8">
+        <div id="form-loading" hidden class="mx-auto max-w-2xl space-y-6" aria-busy="true">
+          <div class="skeleton h-8 w-48"></div><div class="skeleton h-12 w-full"></div><div class="skeleton h-40 w-full"></div>
+        </div>
+        <div id="form-error" hidden class="mx-auto max-w-2xl"></div>
+
+        <form id="announcement-form" class="card mx-auto max-w-2xl p-6 sm:p-8" novalidate>
+          <div>
+            <h2 class="text-xl font-bold">Audio message</h2>
+            <p class="help mt-1">Residents get a notification when it's published.</p>
+          </div>
+
+          <div class="mt-6">
+            <label for="title" class="label">Title</label>
+            <input id="title" type="text" maxlength="150" placeholder="Water outage update: Hatfield" class="input" required>
+            <p id="title-error" class="field-error" hidden></p>
+          </div>
+
+          <hr class="my-8 border-line">
+
+          <div>
+            <h2 class="label text-base">Audio file</h2>
+            <label id="drop-zone" for="media" class="flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-jacaranda/40 bg-jacaranda-mist/50 p-6 text-center transition hover:border-jacaranda hover:bg-jacaranda-mist has-focus-visible:border-jacaranda has-focus-visible:ring-4 has-focus-visible:ring-jacaranda/25">
+              <span class="grid size-12 place-items-center rounded-full bg-white text-jacaranda shadow-sm"><span data-icon="cloud-upload" class="size-6"></span></span>
+              <span class="mt-3 font-bold">Drop audio or <span class="text-jacaranda underline underline-offset-4">browse</span></span>
+              <span class="mt-1 text-sm text-muted">MP3, WAV, M4A or OGG · up to 5 MB</span>
+              <input id="media" type="file" accept=".mp3,.wav,.m4a,.ogg,audio/*" class="sr-only" aria-describedby="media-error media-help">
+            </label>
+            <p id="edit-audio-note" hidden class="mt-3 flex gap-2 rounded-xl bg-sky/60 p-3 text-sm text-ink">
+              <span data-icon="info" class="mt-0.5 size-4 text-sky-text"></span>
+              <span>The backend keeps the original recording when you edit, so you can change the title and status here. For a new recording, create a new announcement.</span>
+            </p>
+
+            <div id="preview" hidden class="mt-4 rounded-2xl border border-line bg-canvas p-4">
+              <div class="flex items-center justify-between gap-3">
+                <p class="truncate text-sm font-semibold"><span id="preview-name"></span> <span id="preview-meta" class="text-muted"></span></p>
+                <button type="button" id="remove-media" class="btn-ghost min-h-9 shrink-0 px-3 text-danger hover:bg-blush/60">Remove</button>
+              </div>
+              <audio id="preview-player" controls class="mt-3 w-full"></audio>
+            </div>
+
+            <div id="progress-wrap" hidden class="mt-4">
+              <div class="h-2 overflow-hidden rounded-full bg-line" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="progress-bar" class="h-full w-0 rounded-full bg-jacaranda transition-[width]"></div>
+              </div>
+              <p id="progress-text" class="help" aria-live="polite"></p>
+            </div>
+            <p id="media-help" class="help">Listen to it in the preview before you save.</p>
+            <p id="media-error" class="field-error" hidden></p>
+          </div>
+
+          <hr class="my-8 border-line">
+
+          <div class="flex items-center justify-between gap-6 rounded-2xl border border-line bg-white p-5">
+            <div>
+              <p id="published-label" class="font-bold">Published</p>
+              <p id="published-help" class="help mt-0.5">Off = saved as a draft that only admins see.</p>
+            </div>
+            <button id="published" type="button" role="switch" aria-checked="true" aria-labelledby="published-label" aria-describedby="published-help"
+              class="relative h-8 w-14 shrink-0 rounded-full bg-jacaranda transition">
+              <span class="switch-knob absolute top-1 left-7 size-6 rounded-full bg-white shadow transition-all"></span>
+            </button>
+          </div>
+
+          <p id="form-banner" hidden class="mt-6 rounded-xl border border-danger/30 bg-blush p-3 text-sm font-semibold text-danger" role="alert"></p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button id="save-button" type="submit" class="btn-primary min-h-12 px-7">Save announcement</button>
+            <a href="../announcements.html" class="btn-secondary min-h-12 px-7">Cancel</a>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/media-common.js"></script>
+  <script src="../js/media-form.js"></script>
+  <script src="../js/pages/admin-announcement-form.js"></script>
+</body>
+</html>

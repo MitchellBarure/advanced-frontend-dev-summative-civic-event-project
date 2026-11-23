@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Promo · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <nav aria-label="Breadcrumb" class="eyebrow text-muted">
+      <a href="promos.html" class="text-jacaranda-deep underline underline-offset-4 hover:text-jacaranda">Promos</a>
+      <span aria-hidden="true">/</span>
+      <span id="crumb-title" aria-current="page">…</span>
+    </nav>
+
+    <div id="promo-loading" class="mt-6 space-y-4" aria-busy="true">
+      <div class="skeleton aspect-video rounded-3xl"></div><div class="skeleton h-10 w-2/3"></div><div class="skeleton h-4 w-full"></div>
+    </div>
+    <div id="promo-error" class="mt-6" hidden></div>
+
+    <article id="promo" hidden>
+      <section id="player" class="group/player relative mt-6 overflow-hidden rounded-3xl bg-ink" aria-label="Video player">
+        <video id="video" class="aspect-video w-full bg-ink" preload="metadata" playsinline>
+          <p class="p-6 text-white">Your browser can't play this video. <a id="fallback-link" class="underline">Download it</a> or read the transcript below.</p>
+        </video>
+
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 bg-ink px-3 py-3 text-white sm:px-4">
+          <button id="play" type="button" class="grid size-11 place-items-center rounded-full hover:bg-white/10" aria-label="Play">
+            <span data-icon="play" class="*:fill-current size-5 translate-x-px"></span>
+          </button>
+          <label for="seek" class="sr-only">Position in the video</label>
+          <input id="seek" type="range" min="0" max="100" step="0.1" value="0" class="order-last w-full cursor-pointer accent-jacaranda-light sm:order-none sm:w-auto sm:flex-1">
+          <p class="text-sm font-bold tabular-nums"><span id="current-time">0:00</span> / <span id="total-time">–:––</span></p>
+          <div class="ml-auto flex items-center gap-1 sm:ml-0">
+            <button id="mute" type="button" class="grid size-11 place-items-center rounded-full hover:bg-white/10" aria-label="Mute" aria-pressed="false">
+              <span data-icon="volume-2" class="size-5"></span>
+            </button>
+            <label for="volume" class="sr-only">Volume</label>
+            <input id="volume" type="range" min="0" max="1" step="0.05" value="1" class="hidden w-20 cursor-pointer accent-jacaranda-light sm:block">
+            <button id="captions" type="button" class="btn min-h-9 bg-jacaranda px-3 text-white hover:bg-jacaranda-light" aria-pressed="true">
+              <span data-icon="captions" class="size-4"></span><span class="cc-label">CC on</span>
+            </button>
+            <button id="fullscreen" type="button" class="grid size-11 place-items-center rounded-full hover:bg-white/10" aria-label="Full screen">
+              <span data-icon="maximize" class="size-5"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <p class="mt-2 hidden text-sm text-muted md:block">Space = play/pause · ← → = skip 10s · C = captions · F = full screen</p>
+      <p id="video-problem" hidden class="mt-4 rounded-xl border border-danger/30 bg-blush p-3 text-sm font-semibold text-danger" role="alert">
+        This video couldn't play in your browser. <a id="download-link" class="underline underline-offset-4" download>Download it</a> or read the transcript below.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 id="title" class="text-4xl font-extrabold tracking-tight text-balance"></h1>
+          <p id="meta" class="eyebrow mt-3 text-muted"></p>
+        </div>
+        <!-- admin only: manage this promo -->
+        <div data-role="admin" id="admin-actions" class="flex flex-wrap gap-2"></div>
+      </div>
+      <p id="description" class="mt-4 text-lg whitespace-pre-line text-ink/80"></p>
+
+      <details class="card group mt-6 p-6" open>
+        <summary class="flex cursor-pointer list-none items-center gap-2 text-lg font-bold">
+          <span data-icon="chevron-down" class="size-5 -rotate-90 transition group-open:rotate-0"></span>
+          Transcript
+        </summary>
+        <p id="transcript" class="mt-3 leading-relaxed whitespace-pre-line text-muted"></p>
+      </details>
+
+      <section class="mt-12" aria-labelledby="more-heading">
+        <h2 id="more-heading" class="text-2xl font-bold">More promos</h2>
+        <div id="more-promos" class="mt-4 grid gap-6 sm:grid-cols-3"></div>
+      </section>
+    </article>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/media-common.js"></script>
+  <script src="js/pages/promo.js"></script>
+</body>
+</html>
