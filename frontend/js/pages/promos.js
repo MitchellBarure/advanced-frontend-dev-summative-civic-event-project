@@ -21,10 +21,10 @@ function loadPromos() {
         '<div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">' + skeletonCards(3) + "</div>"
     );
 
-    apiGet("/promos", { limit: 100 })
-        .then(function (res) {
+    getPromos()
+        .then(function (list) {
             // residents only get published promos. admins see drafts too so they can manage them
-            promos = (res.data || [])
+            promos = list
                 .filter(function (p) { return isAdmin() || isLive(p); })
                 .sort(function (a, b) { return new Date(b.created_at) - new Date(a.created_at); });
             renderPromos();

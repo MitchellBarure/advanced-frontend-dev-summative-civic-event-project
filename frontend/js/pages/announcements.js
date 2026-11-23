@@ -87,7 +87,7 @@ function featuredCard(a) {
 
 function announcementCard(a) {
     return (
-        '<article class="card p-5" data-id="' + a.id + '" data-audio="' + escapeHtml(a.audio_url) + '">' +
+        '<article class="card min-w-0 p-5" data-id="' + a.id + '" data-audio="' + escapeHtml(a.audio_url) + '">' +
             '<div class="flex items-start justify-between gap-3">' +
                 '<h2 class="text-lg font-bold"><a href="announcement.html?id=' + a.id + '" class="hover:text-jacaranda">' + escapeHtml(a.title) + "</a></h2>" +
                 '<p class="eyebrow shrink-0 pt-1.5 text-muted">' + escapeHtml(timeAgo(a.created_at)) + "</p>" +

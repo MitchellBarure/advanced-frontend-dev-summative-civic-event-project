@@ -103,6 +103,7 @@ function toggleClip($button, url, onTime) {
 function setPublishState(kind, item, publish) {
     const path = "/" + kind + "/" + item.id + (publish ? "/publish" : "/unpublish");
     return apiPatch(path).then(function (res) {
+        if (kind === "promos") clearPromoCache();
         showToast(publish ? "Published. Residents got a notification." : "Unpublished. Residents can't see it now.", "success");
         return res.data;
     });
@@ -119,6 +120,7 @@ function deleteMedia(kind, item) {
     }).then(function (ok) {
         if (!ok) return false;
         return apiDelete("/" + kind + "/" + item.id).then(function () {
+            if (kind === "promos") clearPromoCache();
             showToast("Deleted.", "success");
             return true;
         }).catch(function (err) {
@@ -182,4 +184,26 @@ function fillVideoDurations($root) {
         const $badge = $(this);
         readDuration($badge.data("video-duration"), "video", function (d) { $badge.text(formatSeconds(d)).prop("hidden", false); });
     });
+}
+
+/* promos cache: the list is kept in sessionStorage for 5 minutes so moving between the promo
+   pages doesn't refetch it every time. anything that changes a promo calls clearPromoCache() */
+const PROMO_CACHE_KEY = "jc_promos_cache";
+const PROMO_CACHE_MS = 5 * 60 * 1000;
+
+function getPromos() {
+    try {
+        const cached = JSON.parse(sessionStorage.getItem(PROMO_CACHE_KEY) || "null");
+        if (cached && Date.now() - cached.savedAt < PROMO_CACHE_MS) return Promise.resolve(cached.promos);
+    } catch (e) { /* broken cache, just fetch again */ }
+
+    return apiGet("/promos", { limit: 100 }).then(function (res) {
+        const list = res.data || [];
+        try { sessionStorage.setItem(PROMO_CACHE_KEY, JSON.stringify({ savedAt: Date.now(), promos: list })); } catch (e) { /* storage full or blocked */ }
+        return list;
+    });
+}
+
+function clearPromoCache() {
+    try { sessionStorage.removeItem(PROMO_CACHE_KEY); } catch (e) { /* nothing to clear */ }
 }

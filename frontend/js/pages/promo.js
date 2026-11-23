@@ -97,9 +97,9 @@ function renderAdminActions() {
 
 function loadMorePromos() {
     $("#more-promos").html(skeletonCards(3));
-    apiGet("/promos", { limit: 100 })
-        .then(function (res) {
-            const others = (res.data || [])
+    getPromos()
+        .then(function (list) {
+            const others = list
                 .filter(function (p) { return p.id !== promo.id && isLive(p); })
                 .sort(function (a, b) { return new Date(b.created_at) - new Date(a.created_at); })
                 .slice(0, 3);

@@ -1,4 +1,4 @@
-// Shared layout: navbar, profile dropdown, footer and the admin sidebar.
+do // Shared layout: navbar, profile dropdown, footer and the admin sidebar.
 // Pages have <div id="navbar"></div> and <div id="footer"></div> (or <div id="admin-sidebar"></div>).
 
 const NAV_LINKS = [
@@ -16,7 +16,7 @@ function currentFile() {
 function logoMarkup(light) {
     return (
         '<img src="' + pageUrl(light ? "assets/logo-white.svg" : "assets/logo.svg") + '" alt="" class="size-9">' +
-        '<span class="text-lg font-extrabold tracking-tight ' + (light ? "text-white" : "text-ink") + '">Jacaranda <span class="' + (light ? "text-jacaranda-light" : "text-jacaranda") + '">City</span></span>'
+        '<span class="text-base font-extrabold tracking-tight sm:text-lg ' + (light ? "text-white" : "text-ink") + '">Jacaranda <span class="' + (light ? "text-jacaranda-light" : "text-jacaranda") + '">City</span></span>'
     );
 }
 
@@ -49,19 +49,19 @@ function renderNavbar() {
     $("#navbar").html(
         '<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>' +
         '<header class="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur">' +
-            '<div class="mx-auto flex h-18 max-w-7xl items-center gap-4 px-4 sm:px-6">' +
-                '<a href="' + homeUrl() + '" class="flex shrink-0 items-center gap-2" aria-label="Jacaranda City home">' + logoMarkup() + "</a>" +
+            '<div class="mx-auto flex h-18 max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6">' +
+                '<a href="' + homeUrl() + '" class="flex shrink-0 items-center gap-2 max-[359px]:[&>span]:hidden" aria-label="Jacaranda City home">' + logoMarkup() + "</a>" +
                 '<div class="hidden w-full max-w-xs md:block">' + searchForm("nav-search") + "</div>" +
                 '<nav aria-label="Main" class="hidden items-center gap-1 xl:flex">' + links + "</nav>" +
-                '<div class="ml-auto flex items-center gap-2">' +
+                '<div class="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">' +
                     '<button id="bell" type="button" class="relative grid size-11 place-items-center rounded-full border border-line bg-white text-ink hover:bg-canvas" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" aria-controls="notification-drawer">' +
                         icon("bell", "size-5") +
                         '<span id="bell-count" hidden class="absolute -top-1 -right-1 min-w-5 rounded-full bg-sandstone px-1.5 text-center text-xs leading-5 font-bold text-ink" aria-hidden="true"></span>' +
                     "</button>" +
                     '<div class="relative">' +
-                        '<button id="profile-button" type="button" class="flex min-h-11 items-center gap-2 rounded-full border border-line bg-white py-1 pr-3 pl-1 hover:bg-canvas" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">' +
+                        '<button id="profile-button" type="button" class="flex min-h-11 items-center gap-2 rounded-full border border-line bg-white py-1 pr-1 pl-1 hover:bg-canvas sm:pr-3" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">' +
                             '<span class="grid size-9 place-items-center rounded-full bg-jacaranda-mist text-sm font-bold text-jacaranda-deep" aria-hidden="true">' + escapeHtml(initialsOf(user.full_name)) + "</span>" +
-                            '<span class="hidden text-sm font-semibold sm:inline">Profile</span>' + icon("chevron-down", "size-4 text-muted") +
+                            '<span class="hidden text-sm font-semibold sm:inline">Profile</span>' + icon("chevron-down", "hidden size-4 text-muted sm:block") +
                         "</button>" +
                         '<div id="profile-menu" role="menu" hidden class="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-xl">' +
                             '<div class="border-b border-line px-4 pt-1 pb-3"><p class="truncate font-bold">' + escapeHtml(user.full_name) + '</p><p class="truncate text-sm text-muted">' + escapeHtml(user.email || "") + '</p><span class="chip mt-2 bg-jacaranda-mist text-jacaranda-deep capitalize">' + escapeHtml(user.role) + "</span></div>" +

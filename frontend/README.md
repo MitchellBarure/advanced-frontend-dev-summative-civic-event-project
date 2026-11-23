@@ -91,6 +91,16 @@ Font: Plus Jakarta Sans. Cards are `rounded-2xl`, buttons are pills at least 44p
 
 Every guard has a short comment in the code saying what it restricts and for whom.
 
+## Accessibility and responsive checks
+
+Checked on every page (logged out, resident and admin):
+
+- One `h1` per page, a skip link to `main#main`, alt text on every image, a label on every input, a name on every button and link, no duplicate ids.
+- Keyboard: Esc closes the bell drawer, the profile menu and the confirm modal; focus stays inside the drawer and modal while they're open; tab lists move with the arrow keys; the audio and video players have Space / ← → shortcuts.
+- Contrast: every text colour pair passes WCAG AA (4.5:1). Two didn't at first, so `sky-text` is a little darker than in the original palette (#0A5CB0) and the auth button gradient starts deeper.
+- No sideways scrolling at 320, 375, 768 and 1280px. Wide admin tables scroll inside their own card.
+- Colour is never the only signal: statuses always have a text label (and usually an icon).
+
 ## Token storage
 
 Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (gone when the browser closes). Checked → `localStorage` (stays). Tradeoff: both can be read by any script on the page, so an XSS bug could leak the token, and `localStorage` leaves it exposed for longer. All API text goes through `escapeHtml()` before it's rendered. Tokens last 1 hour; the app signs you out the moment one expires.
@@ -99,6 +109,7 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 
 - **Announcements:** one shared `Audio` object, so only one clip plays at a time. The waveform is decoration (CSS bars, same shape per title) that fills in as the clip plays. The detail page has its own controls: play, seek, ±10s, speed, volume, and Space / ← → shortcuts. Durations are read from the file because the backend doesn't store them.
 - **Promos:** the backend stores captions as plain text (`caption_text`), so `captionsToVtt()` turns them into a WebVTT track (one cue per sentence, spread over the video length) and the track is **on by default**. Admins can also paste a full WEBVTT file. The same text is shown as the transcript under the video.
+- **Promos are cached** in sessionStorage for 5 minutes (`getPromos()` in `media-common.js`), so moving between the promo pages doesn't refetch the list. Creating, editing, publishing, unpublishing or deleting a promo clears the cache, so the change shows straight away.
 - Drafts (`published: false`) only show for admins. Residents opening a draft link get a "not found" state.
 
 ## Notifications and service requests

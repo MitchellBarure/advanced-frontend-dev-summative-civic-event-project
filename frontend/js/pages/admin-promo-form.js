@@ -74,6 +74,7 @@ function savePromo(e) {
 
     request
         .then(function (res) {
+            clearPromoCache(); // so the promo pages show the change straight away
             const id = editId || res.data.id;
             flash(editId ? "Changes saved." : isPublishedOn() ? "Promo saved. Residents got a notification about it." : "Saved as a draft.", "success");
             window.location.href = "../promo.html?id=" + id;

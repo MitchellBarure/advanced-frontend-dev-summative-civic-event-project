@@ -16,6 +16,13 @@ $(function () {
         adminPage = 1;
         renderTable();
     });
+    // arrow keys move between the tabs
+    $(".status-tab").on("keydown", function (e) {
+        const $tabs = $(".status-tab");
+        const i = $tabs.index(this);
+        if (e.key === "ArrowRight") $tabs.eq((i + 1) % $tabs.length).trigger("focus").trigger("click");
+        if (e.key === "ArrowLeft") $tabs.eq((i - 1 + $tabs.length) % $tabs.length).trigger("focus").trigger("click");
+    });
     $("#admin-search").on("input", function () { adminPage = 1; renderTable(); });
     $("#event-rows").on("click", ".delete-event-button", function () {
         deleteEvent($(this).data("id"), $(this).data("title")).then(function (deleted) {
@@ -73,7 +80,7 @@ function renderTable() {
     $(".status-tab").each(function () {
         const status = $(this).data("status");
         const selected = status === statusFilter;
-        $(this).attr("aria-selected", String(selected))
+        $(this).attr("aria-selected", String(selected)).attr("tabindex", selected ? "0" : "-1")
             .attr("class", "status-tab btn " + (selected ? "bg-ink text-white" : "border border-ink/20 bg-white text-ink hover:bg-canvas"))
             .text(labels[status] + " (" + counts[status] + ")");
     });
