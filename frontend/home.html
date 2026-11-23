@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <!-- greeting banner -->
+    <section class="relative overflow-hidden rounded-3xl bg-jacaranda-mist px-6 py-8 sm:px-10 sm:py-10" aria-labelledby="greeting">
+      <div class="relative z-10 max-w-xl">
+        <p id="today" class="eyebrow text-jacaranda-deep"></p>
+        <h1 id="greeting" class="mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">Dumela!</h1>
+        <p id="week-summary" class="mt-3 text-lg text-ink/80">&nbsp;</p>
+      </div>
+      <!-- small jacaranda illustration -->
+      <div class="pointer-events-none absolute top-1/2 right-6 hidden -translate-y-1/2 sm:block lg:right-14" aria-hidden="true">
+        <div class="relative">
+          <span class="absolute -top-4 -left-10 size-5 rounded-full bg-jacaranda/30"></span>
+          <span class="absolute top-16 -left-16 size-3 rounded-full bg-jacaranda-light/60"></span>
+          <span class="absolute -right-6 bottom-2 size-4 rounded-full bg-sandstone/70"></span>
+          <img src="assets/logo.svg" alt="" class="size-36 lg:size-44">
+        </div>
+      </div>
+    </section>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_22rem]">
+      <div class="min-w-0 space-y-10">
+        <section aria-labelledby="upcoming-title">
+          <div class="flex items-end justify-between gap-4">
+            <h2 id="upcoming-title" class="text-2xl font-bold">Upcoming events</h2>
+            <a href="events.html" class="inline-flex items-center gap-1 font-semibold text-jacaranda-deep underline-offset-4 hover:underline">See all <span data-icon="arrow-right" class="size-4"></span></a>
+          </div>
+          <div id="upcoming-events" class="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-3" aria-busy="true"></div>
+        </section>
+
+        <section aria-labelledby="announcements-title">
+          <div class="flex items-end justify-between gap-4">
+            <h2 id="announcements-title" class="text-2xl font-bold">Latest announcements</h2>
+            <a href="announcements.html" class="inline-flex items-center gap-1 font-semibold text-jacaranda-deep underline-offset-4 hover:underline">See all <span data-icon="arrow-right" class="size-4"></span></a>
+          </div>
+          <div id="latest-announcements" class="mt-5 space-y-3" aria-busy="true"></div>
+        </section>
+      </div>
+
+      <aside class="space-y-5" aria-label="Your stuff">
+        <section aria-labelledby="registrations-title">
+          <div class="flex items-end justify-between gap-4">
+            <h2 id="registrations-title" class="text-2xl font-bold">Your registrations</h2>
+            <a href="my-registrations.html" class="inline-flex items-center gap-1 font-semibold text-jacaranda-deep underline-offset-4 hover:underline">All <span data-icon="arrow-right" class="size-4"></span></a>
+          </div>
+          <div id="my-registrations" class="mt-5 space-y-3" aria-busy="true"></div>
+        </section>
+
+        <section class="rounded-2xl border border-sandstone/60 bg-sandstone-soft p-6" aria-labelledby="service-title">
+          <h2 id="service-title" class="text-lg font-bold">Something wrong in your street?</h2>
+          <p class="mt-1 text-ink/80">Report a pothole, a broken streetlight and more.</p>
+          <a href="services.html" class="btn-secondary mt-5 w-full"><span data-icon="wrench" class="size-4"></span> Request a service</a>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/events-common.js"></script>
+  <script src="js/media-common.js"></script>
+  <script src="js/pages/home.js"></script>
+</body>
+</html>

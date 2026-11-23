@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body class="relative min-h-screen overflow-x-hidden bg-ink! text-white">
+  <div class="pointer-events-none absolute -top-56 left-1/2 size-[44rem] -translate-x-1/2 rounded-full bg-jacaranda/35 blur-[120px]" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute top-24 left-[12%] size-4 rounded-full bg-jacaranda-light/30" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute top-72 right-[14%] size-6 rounded-full bg-jacaranda/30" aria-hidden="true"></div>
+
+  <a href="index.html" class="absolute top-5 left-5 z-10 inline-flex min-h-11 items-center gap-2 rounded-xl bg-slate px-4 text-sm font-semibold text-white hover:bg-white/15">
+    <span data-icon="arrow-left" class="size-4"></span> Back to home
+  </a>
+
+  <main id="main" class="relative mx-auto flex min-h-screen w-full max-w-[400px] flex-col justify-center px-4 py-24">
+    <div class="mx-auto grid size-16 place-items-center rounded-2xl border border-white/10 bg-slate shadow-lg">
+      <img src="assets/logo-white.svg" alt="Jacaranda City" class="size-10">
+    </div>
+    <h1 class="mt-6 text-center text-3xl font-extrabold tracking-tight">Join the Jacaranda City</h1>
+    <p class="mt-2 text-center text-canvas/80">Already have an account? <a href="login.html" class="font-semibold text-jacaranda-light underline underline-offset-4 hover:text-white">Log in</a></p>
+
+    <div id="signup-banner" hidden class="mt-6 rounded-xl border border-[#FF8A80]/40 bg-danger/15 p-3 text-sm font-semibold text-[#FFB4AB]" role="alert"></div>
+
+    <form id="signup-form" class="mt-6 space-y-5" novalidate>
+      <div>
+        <label for="full_name" class="label-dark">Full name</label>
+        <input id="full_name" type="text" autocomplete="name" placeholder="Thabo Mokoena" class="input-dark" required>
+        <p id="full_name-error" class="field-error-dark" hidden></p>
+      </div>
+      <div>
+        <label for="email" class="label-dark">Email</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@email.com" class="input-dark" required>
+        <p id="email-error" class="field-error-dark" hidden></p>
+      </div>
+      <div>
+        <label for="password" class="label-dark">Password</label>
+        <div class="relative">
+          <input id="password" type="password" autocomplete="new-password" placeholder="Create a password" class="input-dark pr-20" aria-describedby="password-rules" required>
+          <button type="button" class="toggle-password absolute inset-y-0 right-2 my-auto h-9 rounded-lg px-3 text-sm font-semibold text-jacaranda-light hover:bg-white/5" data-target="#password" aria-pressed="false" aria-controls="password">Show</button>
+        </div>
+        <p id="password-error" class="field-error-dark" hidden></p>
+
+        <!-- 4-bar strength meter -->
+        <div class="mt-3 grid grid-cols-4 gap-2" aria-hidden="true">
+          <span class="strength-bar h-1.5 rounded-full bg-white/15"></span>
+          <span class="strength-bar h-1.5 rounded-full bg-white/15"></span>
+          <span class="strength-bar h-1.5 rounded-full bg-white/15"></span>
+          <span class="strength-bar h-1.5 rounded-full bg-white/15"></span>
+        </div>
+        <p id="strength-label" class="mt-2 text-sm font-semibold text-canvas/60" aria-live="polite">Strength: not set</p>
+        <ul id="password-rules" class="mt-2 grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm text-canvas/70">
+          <li data-rule="length" class="flex items-center gap-1.5"></li>
+          <li data-rule="case" class="flex items-center gap-1.5"></li>
+          <li data-rule="number" class="flex items-center gap-1.5"></li>
+          <li data-rule="symbol" class="flex items-center gap-1.5"></li>
+        </ul>
+      </div>
+      <div>
+        <label for="confirm_password" class="label-dark">Confirm password</label>
+        <input id="confirm_password" type="password" autocomplete="new-password" placeholder="Type it again" class="input-dark" required>
+        <p id="confirm_password-error" class="field-error-dark" hidden></p>
+      </div>
+      <button id="signup-button" type="submit" class="btn-gradient min-h-12">Create account</button>
+    </form>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/pages/signup.js"></script>
+</body>
+</html>
