@@ -94,6 +94,27 @@ function bindRegisterButtons($root, onRegistered) {
     });
 }
 
+// admin only: every active registration with its event attached. there's no "all registrations"
+// endpoint, so I ask for each event's attendees and put them together
+function loadAllRegistrations() {
+    return apiGet("/events").then(function (res) {
+        const events = res.data || [];
+        return Promise.all(events.map(function (e) {
+            return apiGet("/event-registrations/event/" + e.id + "/attendees")
+                .then(function (a) { return a.data || []; })
+                .catch(function () { return []; });
+        })).then(function (lists) {
+            const registrations = [];
+            lists.forEach(function (list, i) {
+                list.filter(function (r) { return r.status === "registered"; }).forEach(function (r) {
+                    registrations.push(Object.assign({}, r, { event: events[i] }));
+                });
+            });
+            return { events: events, registrations: registrations };
+        });
+    });
+}
+
 // admin only: delete with a confirm modal first
 function deleteEvent(id, title) {
     return confirmDialog({

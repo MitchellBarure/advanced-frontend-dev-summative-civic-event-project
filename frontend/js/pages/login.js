@@ -33,11 +33,20 @@ $(function () {
             .then(function (res) {
                 const user = res.data.user;
                 saveSession(res.data.token, { id: user.id, full_name: user.full_name, email: user.email, role: user.role }, $("#remember").is(":checked"));
-                flash("Welcome back, " + firstName(user.full_name) + "!", "success");
+                // the backend lets disabled accounts log in, so I check the status myself and stop them here
+                return apiGet("/users/profile/me").then(function (me) {
+                    if (me.data && me.data.is_active === false) {
+                        clearSession();
+                        setLoading($button, false);
+                        showBanner("This account has been disabled. Contact the city if you think this is a mistake.", "border-[#FF8A80]/40 bg-danger/15 text-[#FFB4AB]");
+                        return;
+                    }
+                    flash("Welcome back, " + firstName(user.full_name) + "!", "success");
 
-                // only follow our own page links, so ?next= can't send people to another site
-                const next = params.get("next");
-                window.location.href = next && /^(admin\/)?[\w-]+\.html/.test(next) ? next : homeUrl();
+                    // only follow our own page links, so ?next= can't send people to another site
+                    const next = params.get("next");
+                    window.location.href = next && /^(admin\/)?[\w-]+\.html/.test(next) ? next : homeUrl();
+                });
             })
             .catch(function (err) {
                 setLoading($button, false);

@@ -32,11 +32,13 @@ frontend/
 ├── promos.html  promo.html                 videos with captions
 ├── notifications.html  notification.html   chat-style inbox + detail
 ├── services.html                           service requests (resident)
+├── profile.html                            my profile (edit name + email)
 ├── 403.html              "this page is for admins"
 ├── admin/
 │   ├── dashboard.html  events.html  event-form.html
 │   ├── announcement-form.html  promo-form.html
 │   ├── notifications.html  service-requests.html
+│   ├── users.html  user.html
 ├── css/
 │   ├── input.css         design tokens (@theme) + shared classes: btn-*, input, card, chip…
 │   └── output.css        compiled (generated)
@@ -48,6 +50,7 @@ frontend/
 │   ├── ui.js             toasts, confirm modal, skeletons, empty + error states, dates, form errors
 │   ├── layout.js         navbar, profile menu, footer, admin sidebar, bell drawer + notification helpers
 │   ├── service-requests.js  service request storage (localStorage), types and statuses
+│   ├── users-common.js   role / status chips, avatar, enable-disable with confirm
 │   ├── events-common.js  event card, image placeholder, register + delete helpers
 │   ├── media-common.js   waveform, one-clip-at-a-time audio, video thumbnails, captions → WebVTT, publish/delete
 │   ├── media-form.js     drop zone, file type/size check, preview, progress (admin media forms)
@@ -103,6 +106,13 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 - **Notifications:** `GET /api/notifications` already returns broadcasts plus the ones sent to the logged-in user. The bell shows the unread count and opens a drawer (Esc closes it, focus stays inside). The inbox groups messages by day like a chat; each one opens a detail page with the full message and a button to the related event / announcement / promo from `metadata`. Admins can delete from the inbox, the detail page or **Admin → Notifications**.
 - **Read / unread:** the backend's `read` column is one value shared by every user and there's no endpoint to change it, so each person's read list is kept in localStorage (`jc_read_<user id>`).
 - **Service requests:** the backend has no route for them (only the 6 types in `src/utils/serviceTypes.js`), so requests are saved in localStorage (`jc_service_requests`). Residents file and track them on **Services**; admins change the status on **Admin → Service requests**. Because it's browser storage, an admin only sees requests made in the same browser.
+
+## Dashboard, users and profile
+
+- **Dashboard:** stat cards, "Registrations over time" (last 30 days, CSS bars, no chart library), this month vs last month, top events and content status. The backend has no "all registrations" endpoint, so `loadAllRegistrations()` (in `events-common.js`) asks each event for its attendees and puts them together. Open service requests come from localStorage.
+- **Users:** search, role and status chips, an Active switch per row (turning off asks first; your own row is locked) and a detail page with that person's registrations. Roles can't be edited anywhere.
+- **Profile:** edit name and email (`PATCH /api/users/profile/me`); role and status are shown locked. A 409 shows "That email is already used by another account" under the field.
+- **Known backend limit:** disabling an account only sets `is_active = false`; the API never checks it. The login page reads the profile right after logging in and signs disabled accounts straight back out, but that's a frontend check only.
 
 ## Backend API notes
 

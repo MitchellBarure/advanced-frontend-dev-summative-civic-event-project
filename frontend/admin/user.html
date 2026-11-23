@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User details · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="flex flex-wrap items-center gap-4 border-b border-line bg-white px-4 py-5 sm:px-8">
+        <a href="users.html" class="inline-flex items-center gap-1 font-semibold text-jacaranda-deep underline underline-offset-4 hover:text-jacaranda"><span data-icon="arrow-left" class="size-4"></span> Users</a>
+        <h1 class="text-3xl font-extrabold tracking-tight">User details</h1>
+      </header>
+
+      <main id="main" class="px-4 py-8 sm:px-8">
+        <div class="mx-auto max-w-3xl space-y-6">
+          <div id="user-loading" class="card space-y-4 p-6" aria-busy="true">
+            <div class="flex items-center gap-4"><div class="skeleton size-20 rounded-full"></div><div class="flex-1 space-y-2"><div class="skeleton h-6 w-48"></div><div class="skeleton h-5 w-32"></div></div></div>
+            <div class="skeleton h-12"></div><div class="skeleton h-12"></div>
+          </div>
+          <div id="user-error" hidden></div>
+
+          <section id="user-card" hidden class="card p-6 sm:p-8" aria-labelledby="user-name">
+            <div class="flex items-center gap-5">
+              <span id="user-avatar"></span>
+              <div>
+                <h2 id="user-name" class="text-2xl font-bold"></h2>
+                <div id="user-chips" class="mt-2 flex flex-wrap gap-2"></div>
+              </div>
+            </div>
+
+            <hr class="my-6 border-line">
+
+            <dl class="grid gap-5 sm:grid-cols-2">
+              <div><dt class="label">Full name</dt><dd id="user-full-name" class="input flex items-center border-dashed bg-canvas text-ink/80"></dd></div>
+              <div><dt class="label">Email</dt><dd id="user-email" class="input flex items-center truncate border-dashed bg-canvas text-ink/80"></dd></div>
+              <div><dt class="label">Role</dt><dd id="user-role" class="input flex items-center border-dashed bg-canvas text-ink/80"></dd></div>
+              <div><dt class="label">Joined</dt><dd id="user-joined" class="input flex items-center border-dashed bg-canvas text-ink/80"></dd></div>
+            </dl>
+
+            <div class="mt-6 flex items-center justify-between gap-6 rounded-2xl border border-line p-5">
+              <div>
+                <p id="active-label" class="font-bold">Account active</p>
+                <p id="active-help" class="help mt-0.5">Turn off to stop this person from logging in.</p>
+              </div>
+              <span id="active-switch"></span>
+            </div>
+          </section>
+
+          <section id="registrations-card" hidden class="card p-6 sm:p-8" aria-labelledby="registrations-heading">
+            <h2 id="registrations-heading" class="text-xl font-bold">Their registrations</h2>
+            <ul id="user-registrations" class="mt-4 divide-y divide-line border-t border-line"></ul>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/events-common.js"></script>
+  <script src="../js/users-common.js"></script>
+  <script src="../js/pages/admin-user.js"></script>
+</body>
+</html>

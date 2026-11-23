@@ -20,13 +20,52 @@
           <h1 class="text-3xl font-extrabold tracking-tight">Dashboard</h1>
           <p id="dashboard-date" class="help mt-0.5"></p>
         </div>
-        <a href="event-form.html" class="btn-primary"><span data-icon="plus" class="size-4"></span> New event</a>
+        <div class="flex flex-wrap gap-2">
+          <button id="refresh" type="button" class="btn-secondary"><span data-icon="refresh-cw" class="size-4"></span> Refresh</button>
+          <a href="event-form.html" class="btn-primary"><span data-icon="plus" class="size-4"></span> New event</a>
+        </div>
       </header>
 
-      <main id="main" class="px-4 py-8 sm:px-8">
-        <h2 class="sr-only">Totals</h2>
-        <div id="stats" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5" aria-busy="true"></div>
-        <!-- charts and more come in stage 7 -->
+      <main id="main" class="space-y-6 px-4 py-8 sm:px-8">
+        <section aria-labelledby="totals-heading">
+          <h2 id="totals-heading" class="sr-only">Totals</h2>
+          <div id="stats" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5" aria-busy="true"></div>
+        </section>
+
+        <section class="card overflow-hidden" aria-labelledby="chart-heading">
+          <div class="grid border-b border-line md:grid-cols-[2fr_1fr_1fr]">
+            <div class="p-5 sm:p-6">
+              <h2 id="chart-heading" class="text-xl font-bold">Registrations over time</h2>
+              <p class="help mt-0.5">Last 30 days</p>
+            </div>
+            <div class="border-t border-line bg-jacaranda-mist/70 p-5 sm:p-6 md:border-t-0 md:border-l">
+              <p class="eyebrow text-jacaranda-deep">This month</p>
+              <p id="this-month" class="mt-1 text-4xl font-extrabold tabular-nums">–</p>
+            </div>
+            <div class="border-t border-line p-5 sm:p-6 md:border-t-0 md:border-l">
+              <p class="eyebrow text-muted">Last month</p>
+              <p id="last-month" class="mt-1 text-4xl font-extrabold tabular-nums">–</p>
+            </div>
+          </div>
+          <div class="p-5 sm:p-6">
+            <p id="chart-summary" class="sr-only" aria-live="polite"></p>
+            <div id="chart" class="flex h-56 items-end gap-1 sm:gap-1.5" aria-hidden="true"></div>
+            <div id="chart-labels" class="eyebrow mt-3 flex justify-between text-muted" aria-hidden="true"></div>
+          </div>
+        </section>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <section class="card p-5 sm:p-6" aria-labelledby="top-heading">
+            <h2 id="top-heading" class="text-xl font-bold">Top events by registrations</h2>
+            <ol id="top-events" class="mt-5 space-y-4"></ol>
+          </section>
+
+          <section class="card p-5 sm:p-6" aria-labelledby="content-heading">
+            <h2 id="content-heading" class="text-xl font-bold">Content status</h2>
+            <div id="content-status" class="mt-5 grid gap-3 sm:grid-cols-2"></div>
+            <p class="help mt-4">Events, announcements and promos together. Hit Refresh after making changes in another tab.</p>
+          </section>
+        </div>
       </main>
     </div>
   </div>
@@ -38,6 +77,8 @@
   <script src="../js/api.js"></script>
   <script src="../js/ui.js"></script>
   <script src="../js/layout.js"></script>
+  <script src="../js/events-common.js"></script>
+  <script src="../js/service-requests.js"></script>
   <script src="../js/pages/admin-dashboard.js"></script>
 </body>
 </html>

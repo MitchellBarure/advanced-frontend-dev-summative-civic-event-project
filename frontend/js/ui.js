@@ -195,6 +195,18 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+// on/off switch (role="switch"), used for the users' Active toggle
+function switchMarkup(on, attrs) {
+    return '<button type="button" role="switch" aria-checked="' + on + '" ' + (attrs || "") +
+        ' class="toggle-switch relative h-8 w-14 shrink-0 rounded-full transition disabled:cursor-not-allowed disabled:opacity-40 ' + (on ? "bg-jacaranda" : "bg-ink/20") + '">' +
+        '<span class="absolute top-1 size-6 rounded-full bg-white shadow transition-all ' + (on ? "left-7" : "left-1") + '"></span></button>';
+}
+
+function setSwitch($button, on) {
+    $button.attr("aria-checked", String(on)).toggleClass("bg-jacaranda", on).toggleClass("bg-ink/20", !on);
+    $button.find("span").toggleClass("left-7", on).toggleClass("left-1", !on);
+}
+
 // show / hide password buttons: <button class="toggle-password" data-target="#password">
 function bindPasswordToggles() {
     $(".toggle-password").on("click", function () {
