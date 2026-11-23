@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>No access · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto flex max-w-xl flex-col items-center px-4 py-24 text-center">
+    <div class="grid size-20 place-items-center rounded-full bg-jacaranda-mist text-jacaranda"><span data-icon="lock" class="size-9"></span></div>
+    <p class="eyebrow mt-6 text-muted">Error 403</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight">This page is for city admins</h1>
+    <p class="mt-4 text-lg text-muted">Your account doesn't have access to it. If you think it should, get in touch with a city admin and they can help.</p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a href="home.html" class="btn-primary">Back to home</a>
+      <a href="mailto:help@jacarandacity.test?subject=Admin%20access" class="btn-secondary"><span data-icon="mail" class="size-4"></span> Contact an admin</a>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script>
+    $(function () {
+      if (!requireLogin()) return;
+      renderNavbar();
+      renderFooter();
+      fillIcons();
+    });
+  </script>
+</body>
+</html>
