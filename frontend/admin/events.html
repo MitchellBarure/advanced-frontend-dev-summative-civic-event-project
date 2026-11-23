@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage events · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="flex flex-wrap items-center justify-between gap-4 border-b border-line bg-white px-4 py-5 sm:px-8">
+        <h1 class="text-3xl font-extrabold tracking-tight">Events</h1>
+        <a href="event-form.html" class="btn-primary"><span data-icon="plus" class="size-4"></span> New event</a>
+      </header>
+
+      <main id="main" class="px-4 py-8 sm:px-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter by status">
+            <button type="button" role="tab" class="status-tab btn" data-status="all">All</button>
+            <button type="button" role="tab" class="status-tab btn" data-status="published">Published</button>
+            <button type="button" role="tab" class="status-tab btn" data-status="draft">Drafts</button>
+          </div>
+          <div class="relative w-full sm:w-72">
+            <label for="admin-search" class="sr-only">Search events</label>
+            <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-muted"><span data-icon="search" class="size-4"></span></span>
+            <input id="admin-search" type="search" placeholder="Search events" class="input rounded-full pl-10">
+          </div>
+        </div>
+
+        <div class="card mt-6 overflow-x-auto">
+          <table class="w-full min-w-[52rem] text-left">
+            <caption class="sr-only">All events, with status and registration counts</caption>
+            <thead class="bg-canvas">
+              <tr class="eyebrow text-muted">
+                <th scope="col" class="px-5 py-4">Event</th>
+                <th scope="col" class="px-5 py-4">Date</th>
+                <th scope="col" class="px-5 py-4">Location</th>
+                <th scope="col" class="px-5 py-4">Status</th>
+                <th scope="col" class="px-5 py-4">Registrations</th>
+                <th scope="col" class="px-5 py-4"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="event-rows" class="divide-y divide-line" aria-live="polite"></tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p id="showing" class="eyebrow text-muted"></p>
+          <nav id="admin-pagination" class="flex items-center gap-2" aria-label="Pages"></nav>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/events-common.js"></script>
+  <script src="../js/pages/admin-events.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Events · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-4xl font-extrabold tracking-tight">Events</h1>
+        <p id="event-count" class="eyebrow mt-2 text-muted" aria-live="polite">&nbsp;</p>
+      </div>
+      <!-- admin only: create button -->
+      <a data-role="admin" href="admin/event-form.html" class="btn-primary"><span data-icon="plus" class="size-4"></span> New event</a>
+    </div>
+
+    <form id="filters" class="card mt-8 grid gap-3 p-3 md:grid-cols-[2fr_1fr_1fr_auto]" role="search" aria-label="Filter events">
+      <div class="relative">
+        <label for="search" class="sr-only">Search events</label>
+        <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-muted"><span data-icon="search" class="size-4"></span></span>
+        <input id="search" type="search" placeholder="Search events" class="input rounded-full pl-10">
+      </div>
+      <div>
+        <label for="date-filter" class="sr-only">Date</label>
+        <select id="date-filter" class="input rounded-full">
+          <option value="upcoming">Upcoming</option>
+          <option value="today">Today</option>
+          <option value="weekend">This weekend</option>
+          <option value="week">Next 7 days</option>
+          <option value="month">Next 30 days</option>
+          <option value="past">Past events</option>
+          <option value="any">Any date</option>
+        </select>
+      </div>
+      <div>
+        <label for="location-filter" class="sr-only">Location</label>
+        <select id="location-filter" class="input rounded-full">
+          <option value="">Any location</option>
+        </select>
+      </div>
+      <button id="clear-filters" type="button" class="btn-secondary">Clear</button>
+    </form>
+
+    <div id="event-grid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-live="polite"></div>
+
+    <nav id="pagination" class="mt-10 flex flex-wrap items-center justify-center gap-2" aria-label="Pages"></nav>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/events-common.js"></script>
+  <script src="js/pages/events.js"></script>
+</body>
+</html>

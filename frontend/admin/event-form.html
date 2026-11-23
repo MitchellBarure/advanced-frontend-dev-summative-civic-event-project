@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New event · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="flex flex-wrap items-center gap-3 border-b border-line bg-white px-4 py-5 sm:px-8">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2">
+          <a href="events.html" class="text-muted hover:text-ink">Events</a><span class="text-muted" aria-hidden="true">/</span>
+        </nav>
+        <h1 id="form-title" class="text-3xl font-extrabold tracking-tight">New event</h1>
+      </header>
+
+      <main id="main" class="px-4 py-10 sm:px-8">
+        <div id="form-loading" hidden class="mx-auto max-w-2xl space-y-6" aria-busy="true">
+          <div class="skeleton h-8 w-48"></div><div class="skeleton h-12 w-full"></div><div class="skeleton h-32 w-full"></div><div class="skeleton h-12 w-full"></div>
+        </div>
+        <div id="form-error" hidden class="mx-auto max-w-2xl"></div>
+
+        <form id="event-form" class="mx-auto max-w-2xl" novalidate>
+          <div>
+            <h2 class="text-xl font-bold">Event details</h2>
+            <p class="help mt-1">What residents see on the event page.</p>
+          </div>
+
+          <div class="mt-6 space-y-6">
+            <div>
+              <label for="title" class="label">Title</label>
+              <input id="title" type="text" maxlength="150" placeholder="Jacaranda Night Market" class="input" required>
+              <p id="title-error" class="field-error" hidden></p>
+            </div>
+            <div>
+              <label for="description" class="label">Description</label>
+              <textarea id="description" rows="5" placeholder="What's happening, who it's for…" class="input" aria-describedby="description-help"></textarea>
+              <p id="description-help" class="help">A few sentences is plenty. Line breaks are kept.</p>
+            </div>
+            <div>
+              <label for="location" class="label">Location</label>
+              <input id="location" type="text" placeholder="Church Square, Pretoria CBD" class="input" required>
+              <p id="location-error" class="field-error" hidden></p>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2">
+              <div>
+                <label for="starts_at" class="label">Starts</label>
+                <input id="starts_at" type="datetime-local" class="input" required>
+                <p id="starts_at-error" class="field-error" hidden></p>
+              </div>
+              <div>
+                <label for="ends_at" class="label">Ends</label>
+                <input id="ends_at" type="datetime-local" class="input" required>
+                <p id="ends_at-error" class="field-error" hidden></p>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-8 border-line">
+
+          <div>
+            <h2 id="image-heading" class="label text-base">Event image</h2>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label id="drop-zone" for="image" class="flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-jacaranda/40 bg-jacaranda-mist/50 p-6 text-center transition hover:border-jacaranda hover:bg-jacaranda-mist has-focus-visible:border-jacaranda has-focus-visible:ring-4 has-focus-visible:ring-jacaranda/25">
+                <span class="grid size-12 place-items-center rounded-full bg-white text-jacaranda shadow-sm"><span data-icon="cloud-upload" class="size-6"></span></span>
+                <span class="mt-3 font-bold">Drop an image or <span class="text-jacaranda underline underline-offset-4">browse</span></span>
+                <span class="mt-1 text-sm text-muted">JPG, PNG or GIF · up to 2 MB</span>
+                <input id="image" type="file" accept=".jpg,.jpeg,.png,.gif,image/jpeg,image/png,image/gif" class="sr-only" aria-describedby="image-error image-help">
+              </label>
+              <div id="preview" class="relative grid min-h-48 place-items-center overflow-hidden rounded-2xl border border-dashed border-line bg-canvas text-sm text-muted">
+                <span id="preview-empty" class="flex flex-col items-center gap-2"><span data-icon="image" class="size-6"></span>Preview shows here</span>
+              </div>
+            </div>
+            <div id="progress-wrap" hidden class="mt-4">
+              <div class="h-2 overflow-hidden rounded-full bg-line" role="progressbar" aria-label="Upload progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="progress-bar" class="h-full w-0 rounded-full bg-jacaranda transition-[width]"></div>
+              </div>
+              <p id="progress-text" class="help" aria-live="polite"></p>
+            </div>
+            <p id="image-help" class="help">Optional. A wide photo (16:9) looks best on the event cards.</p>
+            <p id="image-error" class="field-error" hidden></p>
+          </div>
+
+          <hr class="my-8 border-line">
+
+          <div class="flex items-center justify-between gap-6 rounded-2xl border border-line bg-white p-5">
+            <div>
+              <p id="published-label" class="font-bold">Published</p>
+              <p id="published-help" class="help mt-0.5">Residents can only see published events.</p>
+            </div>
+            <button id="published" type="button" role="switch" aria-checked="true" aria-labelledby="published-label" aria-describedby="published-help"
+              class="relative h-8 w-14 shrink-0 rounded-full bg-jacaranda transition">
+              <span class="switch-knob absolute top-1 left-7 size-6 rounded-full bg-white shadow transition-all"></span>
+            </button>
+          </div>
+
+          <p id="form-banner" hidden class="mt-6 rounded-xl border border-danger/30 bg-blush p-3 text-sm font-semibold text-danger" role="alert"></p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button id="save-button" type="submit" class="btn-primary min-h-12 px-7">Save event</button>
+            <a href="events.html" class="btn-secondary min-h-12 px-7">Cancel</a>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/events-common.js"></script>
+  <script src="../js/pages/admin-event-form.js"></script>
+</body>
+</html>

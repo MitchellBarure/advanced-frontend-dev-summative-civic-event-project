@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My registrations · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <h1 class="text-4xl font-extrabold tracking-tight">My registrations</h1>
+    <p class="eyebrow mt-2 text-muted">Events you've signed up for</p>
+
+    <div class="mt-8 flex gap-2" role="tablist" aria-label="Registrations">
+      <button id="tab-upcoming" type="button" role="tab" aria-selected="true" aria-controls="registration-list" data-tab="upcoming" class="tab btn">Upcoming</button>
+      <button id="tab-past" type="button" role="tab" aria-selected="false" aria-controls="registration-list" data-tab="past" tabindex="-1" class="tab btn">Past</button>
+    </div>
+
+    <div id="registration-list" role="tabpanel" aria-labelledby="tab-upcoming" class="mt-6" aria-busy="true"></div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/events-common.js"></script>
+  <script src="js/pages/my-registrations.js"></script>
+</body>
+</html>

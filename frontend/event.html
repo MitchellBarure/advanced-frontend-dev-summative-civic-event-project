@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+    <nav aria-label="Breadcrumb" class="eyebrow text-muted">
+      <a href="events.html" class="text-jacaranda-deep underline underline-offset-4">Events</a>
+      <span aria-hidden="true"> / </span>
+      <span id="crumb-title" aria-current="page">…</span>
+    </nav>
+
+    <!-- skeleton while loading -->
+    <div id="event-loading" aria-busy="true">
+      <div class="skeleton mt-6 aspect-[21/9] w-full rounded-3xl"></div>
+      <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_22rem]">
+        <div class="space-y-4"><div class="skeleton h-6 w-28 rounded-full"></div><div class="skeleton h-10 w-2/3"></div><div class="skeleton h-32 w-full rounded-2xl"></div></div>
+        <div class="skeleton h-40 rounded-2xl"></div>
+      </div>
+    </div>
+    <div id="event-error" hidden class="mt-6"></div>
+
+    <div id="event-content" hidden>
+      <div id="event-image" class="mt-6 overflow-hidden rounded-3xl"></div>
+
+      <div class="mt-8 grid items-start gap-8 lg:grid-cols-[1fr_22rem]">
+        <div class="min-w-0">
+          <div id="event-chips" class="flex flex-wrap gap-2"></div>
+          <h1 id="event-title" class="mt-3 text-4xl font-extrabold tracking-tight text-balance"></h1>
+
+          <dl class="card mt-6 grid gap-5 p-6 sm:grid-cols-2">
+            <div><dt class="eyebrow text-muted">Starts</dt><dd id="event-starts" class="mt-1 font-semibold"></dd></div>
+            <div><dt class="eyebrow text-muted">Ends</dt><dd id="event-ends" class="mt-1 font-semibold"></dd></div>
+            <div><dt class="eyebrow text-muted">Location</dt><dd id="event-location" class="mt-1 font-semibold"></dd></div>
+            <div><dt class="eyebrow text-muted">Map</dt><dd class="mt-1"><a id="event-map" target="_blank" rel="noopener" class="inline-flex items-center gap-1 font-semibold text-jacaranda-deep underline underline-offset-4">Open in Google Maps <span data-icon="external-link" class="size-4"></span><span class="sr-only">(opens in a new tab)</span></a></dd></div>
+          </dl>
+
+          <section class="mt-10" aria-labelledby="about-title">
+            <h2 id="about-title" class="text-2xl font-bold">About this event</h2>
+            <p id="event-description" class="mt-3 text-lg leading-relaxed whitespace-pre-line text-ink/85"></p>
+          </section>
+
+          <section class="mt-10" aria-labelledby="feedback-title">
+            <h2 id="feedback-title" class="text-2xl font-bold">Feedback</h2>
+            <div id="rating-summary" class="card mt-4 flex items-center gap-5 p-6"></div>
+            <div id="feedback-list" class="mt-4 space-y-3" aria-live="polite"></div>
+
+            <!-- residents only: one feedback per event -->
+            <div data-role="user" id="feedback-form-wrap" class="mt-4"></div>
+          </section>
+        </div>
+
+        <aside class="space-y-4 lg:sticky lg:top-24" aria-label="Registration">
+          <div id="register-card" class="card border-jacaranda/40 p-6"></div>
+
+          <!-- admin only: edit / delete -->
+          <div data-role="admin" class="card p-6">
+            <p class="eyebrow text-jacaranda-deep">Admin</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a id="edit-link" href="#" class="btn-secondary"><span data-icon="pencil" class="size-4"></span> Edit event</a>
+              <button id="delete-button" type="button" class="btn-danger"><span data-icon="trash-2" class="size-4"></span> Delete</button>
+            </div>
+          </div>
+
+          <!-- admin only: who registered -->
+          <section data-role="admin" class="card p-6" aria-labelledby="registrants-title">
+            <p class="eyebrow text-jacaranda-deep">Admin</p>
+            <h2 id="registrants-title" class="mt-2 text-lg font-bold">Registrants</h2>
+            <ul id="registrants" class="mt-3 divide-y divide-line"></ul>
+            <button id="show-all-registrants" type="button" hidden class="mt-3 font-semibold text-jacaranda-deep underline underline-offset-4">Show all</button>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/events-common.js"></script>
+  <script src="js/pages/event.js"></script>
+</body>
+</html>
