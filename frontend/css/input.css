@@ -1,0 +1,79 @@
+/* Tailwind entry. Builds to css/output.css (never edit that one by hand) */
+@import "tailwindcss" source(none);
+
+@source "../*.html";
+@source "../admin/*.html";
+@source "../js/**/*.js";
+
+/* Palette A: Jacaranda & Sandstone */
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-jacaranda: #6A49FA;
+  --color-jacaranda-deep: #453284;
+  --color-jacaranda-mist: #EEEAFF;
+  --color-jacaranda-light: #9A86FF;   /* purple text/links on dark backgrounds */
+  --color-ink: #161A23;
+  --color-slate: #242937;
+  --color-canvas: #F7F8F8;
+  --color-muted: #5B6170;
+  --color-sandstone: #F2A93B;
+  --color-sandstone-soft: #FEF5E6;
+  --color-leaf: #1F7A5C;
+  --color-leaf-soft: #E3F3EC;
+  --color-sky: #C6E6FF;
+  --color-sky-text: #0B6BCB;
+  --color-blush: #FEDADA;
+  --color-danger: #B42318;
+  --color-line: #E4E6EB;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-canvas font-sans text-ink antialiased; }
+  /* 2px jacaranda focus ring everywhere */
+  :focus-visible { outline: 2px solid var(--color-jacaranda); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+  /* promo captions: dark box, readable size */
+  video::cue { background: rgb(22 26 35 / 0.85); color: #fff; font-family: var(--font-sans); font-size: 1.1rem; line-height: 1.4; }
+}
+
+/* buttons: pill shaped, 44px tall */
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-semibold whitespace-nowrap transition
+         disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary { @apply btn bg-jacaranda text-white hover:bg-jacaranda-deep; }
+@utility btn-secondary { @apply btn border border-ink/20 bg-white text-ink hover:border-ink/40 hover:bg-canvas; }
+@utility btn-danger { @apply btn border border-danger/40 bg-white text-danger hover:bg-blush; }
+@utility btn-danger-solid { @apply btn bg-danger text-white hover:bg-red-800; }
+@utility btn-ghost { @apply btn text-ink hover:bg-ink/5; }
+@utility btn-gradient { @apply btn w-full rounded-xl bg-linear-to-r from-jacaranda to-[#8F7BFF] text-base text-white hover:from-jacaranda-deep hover:to-jacaranda; }
+
+/* light forms */
+@utility label { @apply mb-1.5 block text-sm font-semibold text-ink; }
+@utility input {
+  @apply block min-h-11 w-full rounded-xl border border-line bg-white px-4 py-2.5 text-base text-ink placeholder:text-muted/70
+         focus:border-jacaranda focus:outline-none focus:ring-4 focus:ring-jacaranda/15
+         aria-invalid:border-danger aria-invalid:ring-danger/15;
+}
+@utility help { @apply mt-1.5 text-sm text-muted; }
+@utility field-error { @apply mt-1.5 text-sm font-medium text-danger; }
+
+/* dark forms (auth pages) */
+@utility label-dark { @apply mb-1.5 block text-sm font-semibold text-canvas/90; }
+@utility input-dark {
+  @apply block min-h-12 w-full rounded-xl border border-white/10 bg-slate px-4 py-3 text-base text-white placeholder:text-white/40
+         focus:border-jacaranda-light focus:outline-none focus:ring-4 focus:ring-jacaranda/25
+         aria-invalid:border-[#FF8A80];
+}
+@utility field-error-dark { @apply mt-1.5 text-sm font-medium text-[#FFB4AB]; }
+
+@utility card { @apply rounded-2xl border border-line bg-white shadow-[0_1px_2px_rgba(22,26,35,0.04),0_4px_16px_rgba(22,26,35,0.04)]; }
+@utility chip { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold; }
+@utility eyebrow { @apply text-xs font-bold tracking-[0.12em] uppercase; }
+@utility skeleton { @apply animate-pulse rounded-lg bg-ink/8; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "jacaranda-city-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jacaranda City frontend: HTML, Tailwind CSS and jQuery",
+  "scripts": {
+    "build:css": "tailwindcss -i ./css/input.css -o ./css/output.css --minify",
+    "watch:css": "tailwindcss -i ./css/input.css -o ./css/output.css --watch",
+    "serve": "http-server . -p 5500 -c-1",
+    "dev": "concurrently -n css,web -c magenta,green \"npm:watch:css\" \"npm:serve\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "concurrently": "^10.0.7",
+    "http-server": "^14.1.1",
+    "tailwindcss": "^4.3.5"
+  }
+}

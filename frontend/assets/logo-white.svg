@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Jacaranda City">
+  <path d="M24 46V29M24 37l-7-6.5M24 33.5l6.5-5.5" fill="none" stroke="#F7F8F8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="8" r="6" fill="#C9BEFF"/>
+  <circle cx="14" cy="14" r="6" fill="#C9BEFF"/>
+  <circle cx="34" cy="14" r="6" fill="#C9BEFF"/>
+  <circle cx="24" cy="17" r="6" fill="#6A49FA"/>
+  <circle cx="9.5" cy="23" r="5.5" fill="#9A86FF"/>
+  <circle cx="19" cy="24" r="6" fill="#9A86FF"/>
+  <circle cx="29.5" cy="24" r="6" fill="#6A49FA"/>
+  <circle cx="38.5" cy="23" r="5.5" fill="#9A86FF"/>
+</svg>
