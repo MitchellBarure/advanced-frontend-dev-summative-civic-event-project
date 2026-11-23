@@ -9,7 +9,8 @@ router.post('/', authenticate, Controller.createFeedback);
 router.put('/:id', authenticate, Controller.updateFeedback);
 router.get('/my-feedback', authenticate, Controller.getUserFeedback);
 
-// Admin route to view all feedback for an event
-router.get('/event/:event_id', authenticate, authorize(['admin']), Controller.getEventFeedback);
+// FIX (frontend project): any logged-in user can read an event's feedback so the event page
+// can show the reviews + average rating. Emails are stripped for non-admins in the controller.
+router.get('/event/:event_id', authenticate, Controller.getEventFeedback);
 
 export default router;

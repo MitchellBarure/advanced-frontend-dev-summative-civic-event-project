@@ -43,7 +43,11 @@ export const getEventFeedback = async (req, res, next) => {
         const event = await Events.findById(event_id);
         if (!event) return res.status(404).json({ status: 404, message: 'Event not found' });
 
-        const feedbacks = await Feedback.findByEvent(event_id);
+        let feedbacks = await Feedback.findByEvent(event_id);
+        // FIX (frontend project): residents don't get other people's emails
+        if (req.user.role !== 'admin') {
+            feedbacks = feedbacks.map(({ email, ...rest }) => rest);
+        }
         res.status(200).json({ status: 200, data: feedbacks });
     } catch (err) {
         next(err);

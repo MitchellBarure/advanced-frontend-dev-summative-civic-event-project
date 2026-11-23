@@ -1,11 +1,15 @@
 import db from '../config/db.js';
 
 // Register a user for an event
+// FIX (frontend project): a cancelled registration gets re-activated instead of failing.
+// Still returns nothing (→ 409) if the user is already registered.
 export const register = async (user_id, event_id) => {
     const res = await db.query(
         `INSERT INTO event_registrations (user_id, event_id)
          VALUES ($1, $2)
-         ON CONFLICT (user_id, event_id) DO NOTHING
+         ON CONFLICT (user_id, event_id) DO UPDATE
+             SET status='registered', updated_at=NOW()
+             WHERE event_registrations.status='cancelled'
          RETURNING *`,
         [user_id, event_id]
     );

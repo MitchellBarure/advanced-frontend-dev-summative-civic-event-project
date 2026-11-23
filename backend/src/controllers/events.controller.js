@@ -5,7 +5,7 @@ import * as Notifications from '../models/notifications.model.js';
 
 export const create = async (req, res, next) => {
     try {
-        const { title, description, location, starts_at, ends_at } = req.body;
+        const { title, description, location, starts_at, ends_at, published } = req.body;
 
         // Base event data
         const eventData = {
@@ -14,6 +14,8 @@ export const create = async (req, res, next) => {
             location,
             starts_at,
             ends_at,
+            // FIX (frontend project): multipart sends booleans as strings
+            published: published === undefined ? true : String(published) === 'true',
             created_at: new Date(),
             updated_at: new Date(),
             metadata: {}
@@ -96,7 +98,7 @@ export const update = async (req, res, next) => {
         }
 
         // Prepare updated data
-        const { title, description, location, starts_at, ends_at } = req.body;
+        const { title, description, location, starts_at, ends_at, published } = req.body;
         const metadata = { ...existingEvent.metadata };
 
         // Handle new image upload
@@ -126,6 +128,8 @@ export const update = async (req, res, next) => {
             location: location ?? existingEvent.location,
             starts_at: starts_at ?? existingEvent.starts_at,
             ends_at: ends_at ?? existingEvent.ends_at,
+            // FIX (frontend project): keep the old value if the form didn't send one
+            published: published === undefined ? existingEvent.published : String(published) === 'true',
             metadata,
             updated_at: new Date(),
         };
