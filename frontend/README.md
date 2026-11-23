@@ -30,10 +30,13 @@ frontend/
 ├── events.html  event.html  my-registrations.html
 ├── announcements.html  announcement.html   audio clips + player
 ├── promos.html  promo.html                 videos with captions
+├── notifications.html  notification.html   chat-style inbox + detail
+├── services.html                           service requests (resident)
 ├── 403.html              "this page is for admins"
 ├── admin/
 │   ├── dashboard.html  events.html  event-form.html
 │   ├── announcement-form.html  promo-form.html
+│   ├── notifications.html  service-requests.html
 ├── css/
 │   ├── input.css         design tokens (@theme) + shared classes: btn-*, input, card, chip…
 │   └── output.css        compiled (generated)
@@ -43,7 +46,8 @@ frontend/
 │   ├── auth.js           session storage, isAdmin(), ROLE GUARDS
 │   ├── api.js            $.ajax helper: Bearer token, JSON / FormData, 401 → login, 403 → message
 │   ├── ui.js             toasts, confirm modal, skeletons, empty + error states, dates, form errors
-│   ├── layout.js         navbar, profile menu, footer, admin sidebar
+│   ├── layout.js         navbar, profile menu, footer, admin sidebar, bell drawer + notification helpers
+│   ├── service-requests.js  service request storage (localStorage), types and statuses
 │   ├── events-common.js  event card, image placeholder, register + delete helpers
 │   ├── media-common.js   waveform, one-clip-at-a-time audio, video thumbnails, captions → WebVTT, publish/delete
 │   ├── media-form.js     drop zone, file type/size check, preview, progress (admin media forms)
@@ -93,6 +97,12 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 - **Announcements:** one shared `Audio` object, so only one clip plays at a time. The waveform is decoration (CSS bars, same shape per title) that fills in as the clip plays. The detail page has its own controls: play, seek, ±10s, speed, volume, and Space / ← → shortcuts. Durations are read from the file because the backend doesn't store them.
 - **Promos:** the backend stores captions as plain text (`caption_text`), so `captionsToVtt()` turns them into a WebVTT track (one cue per sentence, spread over the video length) and the track is **on by default**. Admins can also paste a full WEBVTT file. The same text is shown as the transcript under the video.
 - Drafts (`published: false`) only show for admins. Residents opening a draft link get a "not found" state.
+
+## Notifications and service requests
+
+- **Notifications:** `GET /api/notifications` already returns broadcasts plus the ones sent to the logged-in user. The bell shows the unread count and opens a drawer (Esc closes it, focus stays inside). The inbox groups messages by day like a chat; each one opens a detail page with the full message and a button to the related event / announcement / promo from `metadata`. Admins can delete from the inbox, the detail page or **Admin → Notifications**.
+- **Read / unread:** the backend's `read` column is one value shared by every user and there's no endpoint to change it, so each person's read list is kept in localStorage (`jc_read_<user id>`).
+- **Service requests:** the backend has no route for them (only the 6 types in `src/utils/serviceTypes.js`), so requests are saved in localStorage (`jc_service_requests`). Residents file and track them on **Services**; admins change the status on **Admin → Service requests**. Because it's browser storage, an admin only sees requests made in the same browser.
 
 ## Backend API notes
 

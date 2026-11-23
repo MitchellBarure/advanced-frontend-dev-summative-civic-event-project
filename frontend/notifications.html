@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notifications · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <span class="grid size-14 shrink-0 place-items-center rounded-full bg-jacaranda" aria-hidden="true"><img src="assets/logo-white.svg" alt="" class="size-9"></span>
+        <div>
+          <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Notifications</h1>
+          <p id="unread-summary" class="eyebrow mt-1 text-muted" aria-live="polite">&nbsp;</p>
+        </div>
+      </div>
+      <button id="mark-all" type="button" class="btn-secondary" disabled><span data-icon="check-check" class="size-4"></span> Mark all as read</button>
+    </div>
+
+    <section class="mt-8 rounded-3xl bg-jacaranda-mist/60 p-4 sm:p-8" aria-label="Messages from Jacaranda City">
+      <div id="inbox" aria-busy="true" aria-live="polite"></div>
+    </section>
+    <p class="mt-3 text-sm text-muted">Messages from the city about new events, announcements and promos. Open one to read it in full.</p>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/notifications.js"></script>
+</body>
+</html>

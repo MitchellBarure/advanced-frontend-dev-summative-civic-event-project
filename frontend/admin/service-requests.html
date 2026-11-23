@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service requests · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="border-b border-line bg-white px-4 py-5 sm:px-8">
+        <h1 class="text-3xl font-extrabold tracking-tight">Service requests</h1>
+      </header>
+
+      <main id="main" class="px-4 py-8 sm:px-8">
+        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter by status">
+          <button type="button" role="tab" class="status-tab btn" data-status="all">All</button>
+          <button type="button" role="tab" class="status-tab btn" data-status="submitted">Submitted</button>
+          <button type="button" role="tab" class="status-tab btn" data-status="in_progress">In progress</button>
+          <button type="button" role="tab" class="status-tab btn" data-status="resolved">Resolved</button>
+        </div>
+
+        <div class="card mt-6 overflow-x-auto">
+          <table class="w-full min-w-[56rem] text-left">
+            <caption class="sr-only">Service requests from residents, with a status you can change</caption>
+            <thead class="bg-canvas">
+              <tr class="eyebrow text-muted">
+                <th scope="col" class="px-5 py-4">Ref</th>
+                <th scope="col" class="px-5 py-4">Request</th>
+                <th scope="col" class="px-5 py-4">Type</th>
+                <th scope="col" class="px-5 py-4">From</th>
+                <th scope="col" class="px-5 py-4">Date</th>
+                <th scope="col" class="px-5 py-4">Status</th>
+              </tr>
+            </thead>
+            <tbody id="request-rows" class="divide-y divide-line"></tbody>
+          </table>
+        </div>
+
+        <p class="mt-4 flex gap-2 rounded-2xl border border-dashed border-line bg-white p-4 text-sm text-muted">
+          <span data-icon="info" class="mt-0.5 size-4 text-sky-text"></span>
+          <span>Changing a status saves straight away and the resident sees it on their Services page. The backend has no service-request route yet, so requests are stored in this browser.</span>
+        </p>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/service-requests.js"></script>
+  <script src="../js/pages/admin-service-requests.js"></script>
+</body>
+</html>

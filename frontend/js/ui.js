@@ -96,15 +96,22 @@ function confirmDialog(options) {
         $("body").append($dialog);
 
         const dialog = $dialog[0];
-        let result = false;
-        $dialog.find("button").on("click", function () {
-            result = this.value === "ok";
-            dialog.close();
-        });
-        $dialog.on("close", function () {
+        let done = false;
+        // finish straight from the button / Esc instead of waiting for the "close" event,
+        // which some browsers fire late (or not at all when the tab is in the background)
+        function finish(ok) {
+            if (done) return;
+            done = true;
+            if (dialog.open) dialog.close();
             $dialog.remove();
-            resolve(result);
+            resolve(ok);
+        }
+        $dialog.find("button").on("click", function () { finish(this.value === "ok"); });
+        $dialog.on("cancel", function (e) {
+            e.preventDefault();
+            finish(false);
         });
+        $dialog.on("close", function () { finish(false); });
         dialog.showModal();
         $dialog.find('[value="cancel"]').trigger("focus");
     });

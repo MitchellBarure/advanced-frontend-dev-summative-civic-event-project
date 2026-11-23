@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manage notifications · Jacaranda City</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../css/output.css">
+</head>
+<body>
+  <div class="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
+    <div id="admin-sidebar"></div>
+
+    <div class="min-w-0">
+      <header class="border-b border-line bg-white px-4 py-5 sm:px-8">
+        <h1 class="text-3xl font-extrabold tracking-tight">Notifications</h1>
+        <p class="mt-1 text-muted">Everything residents have been sent. New events, announcements and promos send one automatically.</p>
+      </header>
+
+      <main id="main" class="px-4 py-8 sm:px-8">
+        <section class="card p-5 sm:p-6" aria-labelledby="all-heading">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 id="all-heading" class="text-xl font-bold">All notifications</h2>
+              <p id="showing" class="eyebrow mt-1 text-muted" aria-live="polite">&nbsp;</p>
+            </div>
+            <div class="flex w-full flex-wrap gap-3 sm:w-auto">
+              <div>
+                <label for="type-filter" class="sr-only">Type</label>
+                <select id="type-filter" class="input min-h-11 rounded-full">
+                  <option value="">All types</option>
+                  <option value="event">Event</option>
+                  <option value="announcement">Audio</option>
+                  <option value="promo">Video</option>
+                </select>
+              </div>
+              <div class="relative min-w-0 flex-1 sm:w-64">
+                <label for="search" class="sr-only">Search notifications</label>
+                <span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-muted"><span data-icon="search" class="size-4"></span></span>
+                <input id="search" type="search" placeholder="Search" class="input rounded-full pl-10">
+              </div>
+            </div>
+          </div>
+
+          <ul id="notification-rows" class="mt-4 divide-y divide-line border-t border-line" aria-busy="true" aria-live="polite"></ul>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/icons.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/pages/admin-notifications.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notification · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <nav aria-label="Breadcrumb" class="eyebrow text-muted">
+      <a href="notifications.html" class="text-jacaranda-deep underline underline-offset-4 hover:text-jacaranda">Notifications</a>
+      <span aria-hidden="true">/</span>
+      <span id="crumb-title" aria-current="page">…</span>
+    </nav>
+
+    <div id="detail-loading" class="mt-8 flex gap-4" aria-busy="true">
+      <div class="skeleton size-14 rounded-full"></div><div class="skeleton h-48 flex-1 rounded-2xl"></div>
+    </div>
+    <div id="detail-error" class="mt-8" hidden></div>
+
+    <article id="detail" hidden class="mt-8 flex items-start gap-4">
+      <span class="grid size-14 shrink-0 place-items-center rounded-full bg-jacaranda" aria-hidden="true"><img src="assets/logo-white.svg" alt="" class="size-9"></span>
+      <div class="card min-w-0 flex-1 rounded-tl-md p-6 sm:p-8">
+        <p class="text-sm font-semibold text-muted">Jacaranda City</p>
+        <div class="mt-2 flex flex-wrap items-center gap-2">
+          <h1 id="title" class="text-2xl font-extrabold tracking-tight text-balance sm:text-3xl"></h1>
+          <span id="type" class="chip bg-jacaranda-mist text-jacaranda-deep"></span>
+        </div>
+        <p id="sent" class="eyebrow mt-2 text-muted"></p>
+        <p id="message" class="mt-5 text-lg leading-relaxed whitespace-pre-line text-ink/85"></p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a id="related" hidden class="btn-primary"></a>
+          <a href="notifications.html" class="btn-secondary"><span data-icon="arrow-left" class="size-4"></span> All notifications</a>
+          <!-- admin only: delete this notification -->
+          <button data-role="admin" id="delete-notification" type="button" class="btn-danger sm:ml-auto"><span data-icon="trash-2" class="size-4"></span> Delete</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/pages/notification.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>City services · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <h1 class="text-4xl font-extrabold tracking-tight">City services</h1>
+    <p class="mt-2 text-lg text-muted">Report something in your area. The city team will update you here.</p>
+
+    <div class="mt-8 grid items-start gap-6 lg:grid-cols-2">
+      <form id="request-form" class="card p-6 sm:p-8" novalidate aria-labelledby="form-heading">
+        <h2 id="form-heading" class="text-xl font-bold">Request a service</h2>
+
+        <div class="mt-6 space-y-5">
+          <div>
+            <label for="type" class="label">Type of request</label>
+            <select id="type" class="input" required>
+              <option value="">Choose one</option>
+            </select>
+            <p id="type-error" class="field-error" hidden></p>
+          </div>
+          <div>
+            <label for="title" class="label">Short title</label>
+            <input id="title" type="text" maxlength="80" placeholder="e.g. Streetlight out on Pierneef St" class="input" required>
+            <p id="title-error" class="field-error" hidden></p>
+          </div>
+          <div>
+            <label for="address" class="label">Address or landmark</label>
+            <input id="address" type="text" maxlength="120" placeholder="Street, suburb" autocomplete="street-address" class="input" required>
+            <p id="address-error" class="field-error" hidden></p>
+          </div>
+          <div>
+            <label for="details" class="label">Details</label>
+            <textarea id="details" rows="4" maxlength="600" placeholder="What's wrong and since when?" class="input" required aria-describedby="details-help"></textarea>
+            <p id="details-help" class="help">The more detail, the quicker the team can sort it out.</p>
+            <p id="details-error" class="field-error" hidden></p>
+          </div>
+        </div>
+
+        <button id="submit-request" type="submit" class="btn-primary mt-6 min-h-12 px-7">Submit request</button>
+      </form>
+
+      <section class="card p-6 sm:p-8" aria-labelledby="mine-heading">
+        <h2 id="mine-heading" class="text-xl font-bold">My requests</h2>
+        <ul id="my-requests" class="mt-5 space-y-3" aria-live="polite"></ul>
+        <p class="mt-5 flex flex-wrap items-center gap-2 text-sm text-muted">
+          Status steps:
+          <span class="chip bg-jacaranda-mist text-jacaranda-deep">Submitted</span><span aria-hidden="true">→</span>
+          <span class="chip bg-sky text-sky-text">In progress</span><span aria-hidden="true">→</span>
+          <span class="chip bg-leaf-soft text-leaf">Resolved</span>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/service-requests.js"></script>
+  <script src="js/pages/services.js"></script>
+</body>
+</html>
