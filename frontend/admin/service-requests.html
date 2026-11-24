@@ -15,8 +15,10 @@
     <div id="admin-sidebar"></div>
 
     <div class="min-w-0">
-      <header class="border-b border-line bg-white px-4 py-5 sm:px-8">
-        <h1 class="text-3xl font-extrabold tracking-tight">Service requests</h1>
+      <header class="flex flex-wrap items-center justify-between gap-4 border-b border-line bg-white px-4 py-5 sm:px-8">
+        <h1 class="text-4xl tracking-tight sm:text-5xl">Service requests</h1>
+        <!-- admin only (the whole page is admin only): fills an empty list with demo requests -->
+        <button id="load-demo" type="button" hidden class="btn-secondary"><span data-icon="clipboard-list" class="size-4"></span>Load demo requests</button>
       </header>
 
       <main id="main" class="px-4 py-8 sm:px-8">

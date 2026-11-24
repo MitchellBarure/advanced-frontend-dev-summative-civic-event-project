@@ -20,6 +20,48 @@ The backend has to be running (`cd ../backend && npm run dev`). The API URL live
 
 > `css/output.css` is generated. Edit `css/input.css` or the classes in the HTML/JS, never the output file. It *is* committed, so the site works without running a build.
 
+## Demo data
+
+So the dashboard, charts and admin pages have something to show, `scripts/seed-demo.js` fills the app with **seeded demo data created through the API**. It uses the same endpoints the frontend uses (sign up, log in, register, leave a review, disable a user), so everything goes through the app's normal rules. Nothing is written to the database directly.
+
+Run it after `npm run db:seed` in the backend, with the backend running. It needs an admin login, passed in as environment variables so it's not saved in any file:
+
+```bash
+# Git Bash / macOS / Linux
+ADMIN_EMAIL=admin@civicevents.test ADMIN_PASSWORD=<admin password> node scripts/seed-demo.js
+```
+
+```powershell
+# PowerShell
+$env:ADMIN_EMAIL="admin@civicevents.test"; $env:ADMIN_PASSWORD="<admin password>"; node scripts/seed-demo.js
+```
+
+It's safe to run twice: existing accounts just log in, and registrations and reviews that are already there get skipped.
+
+What it adds:
+
+- **10 residents**, each registered for 1 to 3 published events (23 registrations), and 13 reviews. "Draft: Winter Market" is left alone.
+- **Nissi Kapinga is disabled** at the end, so the users table shows the Active switch both on and off.
+
+The API stamps every registration with the time it's made, so everything the script adds lands on the day you run it. That's why the "Registrations over time" chart on the dashboard shows one tall bar. I left it that way on purpose rather than editing dates in the database. With real residents signing up over time, the chart fills in day by day.
+
+All demo residents use the password `Jacaranda#2026`, and the email is `firstname.lastname@example.com`:
+
+| Name | Email |
+|---|---|
+| Leon Smith | `leon.smith@example.com` |
+| Pelumi Ojo | `pelumi.ojo@example.com` |
+| Ntabiseng Sibeko | `ntabiseng.sibeko@example.com` |
+| Rufaro Chikondo | `rufaro.chikondo@example.com` |
+| Daniel Barure | `daniel.barure@example.com` |
+| Lily Kenzie | `lily.kenzie@example.com` |
+| Snehle Phasha | `snehle.phasha@example.com` |
+| Lungelo Ndlovhu | `lungelo.ndlovhu@example.com` |
+| Yedidia Ngoy | `yedidia.ngoy@example.com` |
+| Nissi Kapinga | `nissi.kapinga@example.com` (disabled) |
+
+**Service requests aren't in the script.** The backend has no service-request endpoint, so they can't be created through the API. Instead, Admin → Service requests has a **Load demo requests** button. It only shows up while this browser has no requests saved, and it adds 9 requests from the residents above (with a mix of Submitted, In progress and Resolved) to localStorage. Because they're linked to the real accounts, each resident sees their own request on the Services page, as long as it's the same browser.
+
 ## Structure
 
 ```
@@ -56,6 +98,8 @@ frontend/
 │   ├── media-common.js   waveform, one-clip-at-a-time audio, video thumbnails, captions → WebVTT, publish/delete
 │   ├── media-form.js     drop zone, file type/size check, preview, progress (admin media forms)
 │   └── pages/            one file per page (events.js, event.js, admin-events.js, …)
+├── scripts/
+│   └── seed-demo.js      demo residents, registrations and reviews (see Demo data)
 └── assets/
     ├── logo.svg  logo-white.svg  favicon.svg
     ├── icons/            the Lucide SVG files (reference copies)

@@ -24,11 +24,33 @@ $(function () {
         renderRequests();
     });
 
+    $("#load-demo").on("click", loadDemo);
     renderRequests();
 });
 
+// demo data only: the backend has no service-request endpoint, so this is the only way to
+// fill the list for a demo. It needs the real user ids so residents see their own requests
+function loadDemo() {
+    const $btn = $("#load-demo");
+    setLoading($btn, true, "Loading…");
+    apiGet("/users", { limit: 100 })
+        .then(function (res) {
+            const added = loadDemoRequests(res.data || []);
+            showToast(added ? added + " demo requests loaded." : "There are already requests saved, so nothing was added.", added ? "success" : "info");
+        })
+        .catch(function (err) {
+            showToast("Couldn't load users for the demo requests. " + err.message, "error");
+        })
+        .finally(function () {
+            setLoading($btn, false);
+            renderRequests();
+        });
+}
+
 function renderRequests() {
     const all = allRequests();
+    // only offered while nothing is saved, so it can never overwrite real requests
+    $("#load-demo").prop("hidden", all.length > 0);
 
     $(".status-tab").each(function () {
         const status = $(this).data("status");
