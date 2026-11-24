@@ -350,8 +350,8 @@ function renderFooter() {
     $("#footer").html(
         '<footer class="mt-20 overflow-hidden bg-ink text-canvas/80">' +
             '<div class="mx-auto max-w-7xl px-4 pt-16 sm:px-6">' +
-                '<div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">' +
-                    // phones: brand on its own row, then the four columns as two rows of two
+                '<div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr]">' +
+                    // phones: brand on its own row, then Explore + Account, then Contact
                     '<div class="col-span-2 lg:col-span-1">' +
                         '<a href="' + pageUrl("index.html") + '" class="inline-flex items-center gap-2">' + logoMarkup(true) + "</a>" +
                         '<p class="mt-4 max-w-xs">Events, announcements and city updates for everyone in Pretoria.</p>' +
@@ -361,11 +361,6 @@ function renderFooter() {
                     footerColumn("Explore", [
                         footerLink("events.html", "Events"), footerLink("announcements.html", "Announcements"),
                         footerLink("promos.html", "Promos"), footerLink("services.html", "Services"),
-                    ]) +
-                    footerColumn("Help", [
-                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test">Contact the city</a>',
-                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test?subject=Accessibility">Accessibility</a>',
-                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test?subject=Question">FAQs</a>',
                     ]) +
                     footerColumn("Account", account) +
                     footerColumn("Contact", [
