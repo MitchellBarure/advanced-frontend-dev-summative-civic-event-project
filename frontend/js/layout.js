@@ -205,14 +205,20 @@ function logoAvatar(small) {
 function notificationBubble(n, compact) {
     const unread = !isRead(n);
     const detailUrl = pageUrl("notification.html?id=" + n.id);
-    const box = "rounded-2xl rounded-tl-md border " + (unread ? "border-jacaranda/60 bg-white ring-1 ring-jacaranda/30" : "border-line bg-white");
+    // unread = white card, purple outline, gold "New" and a bold title. read = faded card and a "Read" tick
+    const box = "rounded-2xl rounded-tl-md border " + (unread ? "border-jacaranda/60 bg-white shadow-sm ring-1 ring-jacaranda/30" : "border-line bg-white/60");
+    const newChip = '<span class="chip bg-sandstone text-ink">New</span>';
+    const readNote = '<span class="flex items-center gap-1 normal-case tracking-normal">' + icon("check", "size-3.5") + "Read</span>";
 
     if (compact) {
         return '<li class="flex items-start gap-3">' + logoAvatar(true) +
             '<a href="' + detailUrl + '" class="block min-w-0 flex-1 px-4 py-3 transition hover:bg-jacaranda-mist ' + box + '">' +
-                '<span class="block font-bold leading-snug">' + escapeHtml(n.title) + "</span>" +
+                '<span class="flex items-start justify-between gap-2">' +
+                    '<span class="leading-snug ' + (unread ? "font-extrabold text-ink" : "font-semibold text-ink/70") + '">' + escapeHtml(n.title) + "</span>" +
+                    (unread ? newChip : "") +
+                "</span>" +
                 '<span class="eyebrow mt-1 flex items-center gap-1.5 text-muted">' + escapeHtml(notificationTime(n.created_at)) +
-                    (unread ? '<span class="size-2 rounded-full bg-sandstone" aria-hidden="true"></span><span class="sr-only">, unread</span>' : "") +
+                    (unread ? "" : " · " + readNote) +
                 "</span>" +
             "</a></li>";
     }
@@ -221,14 +227,15 @@ function notificationBubble(n, compact) {
     return '<li class="flex items-start gap-3" data-id="' + n.id + '">' + logoAvatar() +
         '<article class="min-w-0 max-w-xl flex-1 p-4 sm:p-5 ' + box + '">' +
             '<div class="flex flex-wrap items-center gap-2">' +
-                '<h3 class="font-bold"><a href="' + detailUrl + '" class="hover:text-jacaranda">' + escapeHtml(n.title) + "</a></h3>" +
+                (unread ? newChip : "") +
+                '<h3 class="' + (unread ? "font-extrabold text-ink" : "font-semibold text-ink/70") + '"><a href="' + detailUrl + '" class="hover:text-jacaranda">' + escapeHtml(n.title) + "</a></h3>" +
                 '<span class="chip bg-jacaranda-mist text-jacaranda-deep">' + escapeHtml(notificationType(n).label) + "</span>" +
             "</div>" +
-            '<p class="mt-1 text-ink/80">' + escapeHtml(n.message) + "</p>" +
+            '<p class="mt-1 ' + (unread ? "text-ink/85" : "text-muted") + '">' + escapeHtml(n.message) + "</p>" +
             (link ? '<a href="' + link.href + '" class="btn-primary mt-3 min-h-10">' + escapeHtml(link.label) + icon("arrow-right", "size-4") + "</a>" : "") +
             '<div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">' +
                 '<p class="eyebrow flex items-center gap-1.5 text-muted">' + escapeHtml(notificationTime(n.created_at)) +
-                    (unread ? ' · unread <span class="size-2 rounded-full bg-sandstone" aria-hidden="true"></span>' : "") + "</p>" +
+                    (unread ? "" : " · " + readNote) + "</p>" +
                 // admin only: delete straight from the inbox. backend checks the role too
                 '<button data-role="admin" type="button" class="delete-notification text-sm font-semibold text-danger underline-offset-4 hover:underline" data-id="' + n.id + '">Delete</button>' +
             "</div>" +
@@ -343,8 +350,9 @@ function renderFooter() {
     $("#footer").html(
         '<footer class="mt-20 overflow-hidden bg-ink text-canvas/80">' +
             '<div class="mx-auto max-w-7xl px-4 pt-16 sm:px-6">' +
-                '<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">' +
-                    '<div>' +
+                '<div class="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">' +
+                    // phones: brand on its own row, then the four columns as two rows of two
+                    '<div class="col-span-2 lg:col-span-1">' +
                         '<a href="' + pageUrl("index.html") + '" class="inline-flex items-center gap-2">' + logoMarkup(true) + "</a>" +
                         '<p class="mt-4 max-w-xs">Events, announcements and city updates for everyone in Pretoria.</p>' +
                         '<p class="mt-4 text-sm text-canvas/60">&copy; ' + new Date().getFullYear() + " Jacaranda City.<br>Built by Mitchell Barure.</p>" +
@@ -361,7 +369,7 @@ function renderFooter() {
                     ]) +
                     footerColumn("Account", account) +
                     footerColumn("Contact", [
-                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test">help@jacarandacity.test</a>',
+                        '<a class="break-all hover:text-white sm:break-normal" href="mailto:help@jacarandacity.test">help@jacarandacity.test</a>',
                         '<a class="hover:text-white" href="tel:+27120000000">+27 12 000 0000</a>',
                         "<span>Pretoria, Gauteng</span>",
                     ]) +

@@ -53,7 +53,7 @@ function renderInbox() {
         const day = dayHeading(n.created_at);
         if (day !== lastDay) {
             if (lastDay !== null) html += "</ul>";
-            html += '<h2 class="mx-auto my-4 w-fit rounded-full bg-white/80 px-4 py-1 text-sm font-semibold text-muted first:mt-0">' + escapeHtml(day) + "</h2>" +
+            html += '<h2 class="plain-heading mx-auto my-4 w-fit rounded-full bg-white/80 px-4 py-1 text-sm font-semibold text-muted first:mt-0">' + escapeHtml(day) + "</h2>" +
                 '<ul class="space-y-4">';
             lastDay = day;
         }

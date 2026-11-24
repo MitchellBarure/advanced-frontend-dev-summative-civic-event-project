@@ -45,7 +45,12 @@ function renderPromos() {
     const rest = promos.slice(1);
     $list.html(
         featuredPromo(promos[0]) +
-        (rest.length ? '<div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">' + rest.map(promoCard).join("") + "</div>" : "")
+        (rest.length
+            ? '<section class="mt-16" aria-labelledby="more-promos-title">' +
+                '<div class="flex items-end justify-between gap-4 border-b border-line pb-4"><h2 id="more-promos-title" class="text-3xl tracking-tight">More promos</h2>' +
+                '<p class="text-sm text-muted">' + rest.length + (rest.length === 1 ? " video" : " videos") + "</p></div>" +
+                '<div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">' + rest.map(promoCard).join("") + "</div></section>"
+            : "")
     );
     applyRoleVisibility($list);
     fillVideoDurations($list);
