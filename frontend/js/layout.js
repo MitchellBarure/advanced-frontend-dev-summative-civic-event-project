@@ -15,14 +15,14 @@ function currentFile() {
 
 function logoMarkup(light) {
     return (
-        '<img src="' + pageUrl(light ? "assets/logo-white.svg" : "assets/logo.svg") + '" alt="" class="size-9">' +
-        '<span class="text-base font-extrabold tracking-tight sm:text-lg ' + (light ? "text-white" : "text-ink") + '">Jacaranda <span class="' + (light ? "text-jacaranda-light" : "text-jacaranda") + '">City</span></span>'
+        '<img src="' + pageUrl(light ? "assets/logo-white.svg" : "assets/logo.svg") + '" alt="" class="size-10">' +
+        '<span class="text-lg font-extrabold tracking-tight sm:text-xl ' + (light ? "text-white" : "text-ink") + '">Jacaranda <span class="' + (light ? "text-jacaranda-light" : "text-jacaranda") + '">City</span></span>'
     );
 }
 
 function navLink(link, mobile) {
     const active = currentFile() === link.href;
-    const base = mobile ? "block rounded-xl px-4 py-3 text-base" : "rounded-full px-3 py-2 text-sm";
+    const base = mobile ? "block rounded-xl px-4 py-3 text-base" : "rounded-full px-4 py-2.5 text-base";
     return '<a href="' + pageUrl(link.href) + '"' + (active ? ' aria-current="page"' : "") +
         ' class="' + base + ' font-semibold transition ' + (active ? "bg-jacaranda-mist text-jacaranda-deep" : "text-ink/80 hover:bg-ink/5 hover:text-ink") + '">' +
         escapeHtml(link.label) + "</a>";
@@ -33,7 +33,7 @@ function searchForm(id) {
         '<form role="search" action="' + pageUrl("search.html") + '" class="relative">' +
             '<label for="' + id + '" class="sr-only">Search events, announcements and promos</label>' +
             '<span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-muted">' + icon("search", "size-4") + "</span>" +
-            '<input id="' + id + '" name="q" type="search" placeholder="Search everything" class="input min-h-10 rounded-full py-2 pl-10 text-sm">' +
+            '<input id="' + id + '" name="q" type="search" placeholder="Search" class="input min-h-11 rounded-full py-2 pl-10 text-base">' +
         "</form>"
     );
 }
@@ -42,26 +42,26 @@ function renderNavbar() {
     const user = getUser();
     const links = NAV_LINKS.map(function (l) { return navLink(l); }).join("") +
         // admin only: the Admin link. residents never see it (and admin pages have their own guard)
-        '<a data-role="admin" href="' + pageUrl("admin/dashboard.html") + '" class="rounded-full px-3 py-2 text-sm font-semibold text-jacaranda hover:bg-jacaranda-mist">Admin</a>';
+        '<a data-role="admin" href="' + pageUrl("admin/dashboard.html") + '" class="rounded-full px-4 py-2.5 text-base font-semibold text-jacaranda hover:bg-jacaranda-mist">Admin</a>';
     const mobileLinks = NAV_LINKS.map(function (l) { return navLink(l, true); }).join("") +
         '<a data-role="admin" href="' + pageUrl("admin/dashboard.html") + '" class="block rounded-xl px-4 py-3 text-base font-semibold text-jacaranda hover:bg-jacaranda-mist">Admin dashboard</a>';
 
     $("#navbar").html(
         '<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>' +
         '<header class="sticky top-0 z-40 border-b border-line bg-white/90 backdrop-blur">' +
-            '<div class="mx-auto flex h-18 max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6">' +
+            '<div class="mx-auto flex h-20 max-w-7xl items-center gap-2 px-4 sm:gap-4 sm:px-6">' +
                 '<a href="' + homeUrl() + '" class="flex shrink-0 items-center gap-2 max-[359px]:[&>span]:hidden" aria-label="Jacaranda City home">' + logoMarkup() + "</a>" +
                 '<div class="hidden w-full max-w-xs md:block">' + searchForm("nav-search") + "</div>" +
                 '<nav aria-label="Main" class="hidden items-center gap-1 xl:flex">' + links + "</nav>" +
                 '<div class="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">' +
-                    '<button id="bell" type="button" class="relative grid size-11 place-items-center rounded-full border border-line bg-white text-ink hover:bg-canvas" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" aria-controls="notification-drawer">' +
-                        icon("bell", "size-5") +
+                    '<button id="bell" type="button" class="relative grid size-12 place-items-center rounded-full border border-line bg-white text-ink hover:bg-canvas" aria-label="Notifications" aria-haspopup="dialog" aria-expanded="false" aria-controls="notification-drawer">' +
+                        icon("bell", "size-6") +
                         '<span id="bell-count" hidden class="absolute -top-1 -right-1 min-w-5 rounded-full bg-sandstone px-1.5 text-center text-xs leading-5 font-bold text-ink" aria-hidden="true"></span>' +
                     "</button>" +
                     '<div class="relative">' +
-                        '<button id="profile-button" type="button" class="flex min-h-11 items-center gap-2 rounded-full border border-line bg-white py-1 pr-1 pl-1 hover:bg-canvas sm:pr-3" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">' +
-                            '<span class="grid size-9 place-items-center rounded-full bg-jacaranda-mist text-sm font-bold text-jacaranda-deep" aria-hidden="true">' + escapeHtml(initialsOf(user.full_name)) + "</span>" +
-                            '<span class="hidden text-sm font-semibold sm:inline">Profile</span>' + icon("chevron-down", "hidden size-4 text-muted sm:block") +
+                        '<button id="profile-button" type="button" class="flex min-h-12 items-center gap-2 rounded-full border border-line bg-white py-1 pr-1 pl-1 hover:bg-canvas sm:pr-4" aria-haspopup="menu" aria-expanded="false" aria-controls="profile-menu">' +
+                            '<span class="grid size-10 place-items-center rounded-full bg-jacaranda-mist text-base font-bold text-jacaranda-deep" aria-hidden="true">' + escapeHtml(initialsOf(user.full_name)) + "</span>" +
+                            '<span class="hidden text-base font-semibold sm:inline">Profile</span>' + icon("chevron-down", "hidden size-4 text-muted sm:block") +
                         "</button>" +
                         '<div id="profile-menu" role="menu" hidden class="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-line bg-white py-2 shadow-xl">' +
                             '<div class="border-b border-line px-4 pt-1 pb-3"><p class="truncate font-bold">' + escapeHtml(user.full_name) + '</p><p class="truncate text-sm text-muted">' + escapeHtml(user.email || "") + '</p><span class="chip mt-2 bg-jacaranda-mist text-jacaranda-deep capitalize">' + escapeHtml(user.role) + "</span></div>" +
@@ -71,7 +71,7 @@ function renderNavbar() {
                             '<button role="menuitem" type="button" class="logout-button flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm font-medium text-danger hover:bg-blush/50">' + icon("log-out", "size-4") + "Log out</button>" +
                         "</div>" +
                     "</div>" +
-                    '<button id="menu-button" type="button" class="grid size-11 place-items-center rounded-full border border-line bg-white xl:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">' + icon("menu", "size-5") + "</button>" +
+                    '<button id="menu-button" type="button" class="grid size-12 place-items-center rounded-full border border-line bg-white xl:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">' + icon("menu", "size-6") + "</button>" +
                 "</div>" +
             "</div>" +
             '<nav id="mobile-menu" aria-label="Mobile" hidden class="border-t border-line bg-white px-4 py-4 xl:hidden">' +
@@ -122,7 +122,7 @@ function bindNavbar() {
         const opening = $mobile.prop("hidden");
         $mobile.prop("hidden", !opening);
         $(this).attr("aria-expanded", String(opening)).attr("aria-label", opening ? "Close menu" : "Open menu")
-            .html(icon(opening ? "x" : "menu", "size-5"));
+            .html(icon(opening ? "x" : "menu", "size-6"));
     });
 
     $(".logout-button").on("click", function () { logout("signed-out"); });
@@ -356,14 +356,13 @@ function renderFooter() {
                         '<a href="' + pageUrl("index.html") + '" class="inline-flex items-center gap-2">' + logoMarkup(true) + "</a>" +
                         '<p class="mt-4 max-w-xs">Events, announcements and city updates for everyone in Pretoria.</p>' +
                         '<p class="mt-4 text-sm text-canvas/60">&copy; ' + new Date().getFullYear() + " Jacaranda City.<br>Built by Mitchell Barure.</p>" +
-                        '<p class="mt-1 text-sm text-canvas/60">Hero photo: <a class="underline hover:text-white" href="https://unsplash.com/@kuhlebaloyi" rel="noopener" target="_blank">Kuhle Baloyi on Unsplash</a></p>' +
                     "</div>" +
                     footerColumn("Explore", [
                         footerLink("events.html", "Events"), footerLink("announcements.html", "Announcements"),
                         footerLink("promos.html", "Promos"), footerLink("services.html", "Services"),
                     ]) +
                     footerColumn("Account", account) +
-                    footerColumn("Contact", [
+                    footerColumn("Contact &amp; help", [
                         '<a class="break-all hover:text-white sm:break-normal" href="mailto:help@jacarandacity.test">help@jacarandacity.test</a>',
                         '<a class="hover:text-white" href="tel:+27120000000">+27 12 000 0000</a>',
                         "<span>Pretoria, Gauteng</span>",
