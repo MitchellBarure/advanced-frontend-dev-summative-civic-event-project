@@ -4,11 +4,13 @@ A civic events portal for Pretoria (City of Tshwane), the "Jacaranda City". Resi
 
 Built for the ALU Advanced Front-End Development summative ("CivicEvents"). The frontend is HTML + Tailwind CSS + jQuery, talking to the provided Node/Express + PostgreSQL API.
 
+**Demo video:** https://youtu.be/CSqB_OLjyP0
+
 | Folder | What it is |
 |---|---|
 | `backend/` | Provided API (Express, PostgreSQL). Runs on **http://localhost:4000** |
 | `frontend/` | My UI. Served on **http://localhost:5500** |
-| `video-demo/` | Demo video link |
+| `video-demo/` | Demo video link ([watch on YouTube](https://youtu.be/CSqB_OLjyP0)) |
 
 ---
 
