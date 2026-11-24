@@ -167,7 +167,7 @@ Photos and videos are free-licence stock (Unsplash and Pexels licences). Audio a
 | Promo: Jacaranda season 2026 | Video | [Diana Reyes](https://www.pexels.com/video/aerial-view-of-jacaranda-lined-street-39928113/) | Pexels |
 | Promo: Fix-it week in Mamelodi | Video | [Pressmaster](https://www.pexels.com/video/group-of-people-picking-up-trash-in-a-park-3209571/) | Pexels |
 | Promo: Library late nights | Video | [Tima Miroshnichenko](https://www.pexels.com/video/students-sitting-at-the-table-9569475/) | Pexels |
-| Home banner jacaranda tree (`assets/images/jacaranda-tree.svg`) | Illustration | Mitchell Barure | My own drawing |
+| Home banner jacaranda tree (`assets/images/jacaranda-tree.svg`) | Illustration | Mitchell Barure | My own photoshop design |
 | Announcements (3 clips) | Audio | Mitchell Barure | Own recordings |
 
 Icons: [Lucide](https://lucide.dev) (MIT) via Iconify. Fonts: Gloock and Plus Jakarta Sans (SIL Open Font License).
