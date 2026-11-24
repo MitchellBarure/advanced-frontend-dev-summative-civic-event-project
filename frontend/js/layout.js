@@ -1,4 +1,4 @@
-do // Shared layout: navbar, profile dropdown, footer and the admin sidebar.
+// Shared layout: navbar, profile dropdown, footer and the admin sidebar.
 // Pages have <div id="navbar"></div> and <div id="footer"></div> (or <div id="admin-sidebar"></div>).
 
 const NAV_LINKS = [
