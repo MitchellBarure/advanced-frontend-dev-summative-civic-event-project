@@ -432,9 +432,13 @@ function renderAdminSidebar(activeKey) {
                 '<div><p class="font-extrabold text-white">Jacaranda City</p><p class="text-sm text-canvas/60">Admin</p></div>' +
             "</div>" +
             '<nav class="flex-1 overflow-y-auto">' + groups + "</nav>" +
-            '<div class="mt-4 flex items-center gap-3 border-t border-white/10 pt-4">' +
-                '<span class="grid size-10 shrink-0 place-items-center rounded-full bg-jacaranda-mist text-sm font-bold text-jacaranda-deep" aria-hidden="true">' + escapeHtml(initialsOf(user.full_name)) + "</span>" +
-                '<div class="min-w-0 flex-1"><p class="truncate text-sm font-bold text-white">' + escapeHtml(user.full_name) + '</p><p class="truncate text-xs text-canvas/60">' + escapeHtml(user.email || "") + "</p></div>" +
+            '<div class="mt-4 flex items-center gap-2 border-t border-white/10 pt-4">' +
+                // the name block goes to My profile, so admins don't have to go through the public site
+                '<a href="' + pageUrl("profile.html") + '" class="group flex min-w-0 flex-1 items-center gap-3 rounded-xl p-1.5 transition hover:bg-white/5" title="My profile">' +
+                    '<span class="grid size-10 shrink-0 place-items-center rounded-full bg-jacaranda-mist text-sm font-bold text-jacaranda-deep" aria-hidden="true">' + escapeHtml(initialsOf(user.full_name)) + "</span>" +
+                    '<span class="min-w-0 flex-1"><span class="block truncate text-sm font-bold text-white group-hover:underline">' + escapeHtml(user.full_name) + '</span>' +
+                    '<span class="block truncate text-xs text-canvas/60">' + escapeHtml(user.email || "") + '</span><span class="sr-only">, my profile</span></span>' +
+                "</a>" +
                 '<button type="button" class="logout-button rounded-full px-3 py-2 text-sm text-canvas/80 hover:bg-white/10 hover:text-white">Log out</button>' +
             "</div>" +
         "</aside>"
