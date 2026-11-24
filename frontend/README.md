@@ -33,6 +33,7 @@ frontend/
 ├── notifications.html  notification.html   chat-style inbox + detail
 ├── services.html                           service requests (resident)
 ├── profile.html                            my profile (edit name + email)
+├── search.html                             one search for events, announcements and promos
 ├── 403.html              "this page is for admins"
 ├── admin/
 │   ├── dashboard.html  events.html  event-form.html
@@ -79,7 +80,7 @@ Palette "Jacaranda & Sandstone", defined as Tailwind tokens in `css/input.css`:
 | `leaf` | `#1F7A5C` | success, "Registered", "Published" |
 | `sky-text` / `danger` | `#0B6BCB` / `#B42318` | info and error |
 
-Font: Plus Jakarta Sans. Cards are `rounded-2xl`, buttons are pills at least 44px tall, and there's a 2px jacaranda focus ring everywhere.
+Fonts: **Gloock** for page titles and section headings (`h1`, `h2`), **Plus Jakarta Sans** for everything else. Cards are `rounded-2xl`, buttons are pills at least 44px tall, and there's a 2px jacaranda focus ring everywhere.
 
 ## Role-based access (where it's enforced)
 
@@ -109,8 +110,15 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 
 - **Announcements:** one shared `Audio` object, so only one clip plays at a time. The waveform is decoration (CSS bars, same shape per title) that fills in as the clip plays. The detail page has its own controls: play, seek, ±10s, speed, volume, and Space / ← → shortcuts. Durations are read from the file because the backend doesn't store them.
 - **Promos:** the backend stores captions as plain text (`caption_text`), so `captionsToVtt()` turns them into a WebVTT track (one cue per sentence, spread over the video length) and the track is **on by default**. Admins can also paste a full WEBVTT file. The same text is shown as the transcript under the video.
+- **Video thumbnails load lazily:** a promo card only starts downloading its video when it's about to scroll into view (`lazyLoadVideos()` with an IntersectionObserver), and that one download gives both the first frame and the duration badge.
 - **Promos are cached** in sessionStorage for 5 minutes (`getPromos()` in `media-common.js`), so moving between the promo pages doesn't refetch the list. Creating, editing, publishing, unpublishing or deleting a promo clears the cache, so the change shows straight away.
 - Drafts (`published: false`) only show for admins. Residents opening a draft link get a "not found" state.
+
+## Search and small UX touches
+
+- **Global search** (`search.html`, from the navbar): the backend has no search endpoint, so the page loads events, announcements and promos once and filters them in the browser. Every word you type has to match somewhere (title, description, location, captions). Residents only search published content; admins also see drafts, labelled.
+- **Optimistic updates:** the users' Active switch and the Publish/Unpublish buttons change straight away, then the request is sent. If it fails, they flip back and an error toast explains why (`setAccountActive()` in `users-common.js`, `setPublishState()` in `media-common.js`).
+- Read/unread on notifications is instant too (it's stored in the browser).
 
 ## Notifications and service requests
 
