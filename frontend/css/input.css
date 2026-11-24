@@ -8,6 +8,7 @@
 /* Palette A: Jacaranda & Sandstone */
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Gloock", Georgia, "Times New Roman", serif;   /* headings only */
 
   --color-jacaranda: #6A49FA;
   --color-jacaranda-deep: #453284;
@@ -76,4 +77,13 @@
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Gloock for page titles and section headings. Gloock only has one weight, so the bold classes
+   on headings get reset to 400 (a fake bold looks smudgy). Left outside @layer on purpose so it
+   wins over the font-bold / font-extrabold utilities. Small eyebrow labels stay in Plus Jakarta. */
+h1, h2:not(.eyebrow) {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }

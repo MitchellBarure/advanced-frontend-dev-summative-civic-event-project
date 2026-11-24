@@ -335,37 +335,50 @@ function scheduleAutoLogout() {
 }
 
 function renderFooter() {
-    const explore = ["events.html|Events", "announcements.html|Announcements", "promos.html|Promos", "services.html|Services"];
+    // the Account column changes depending on whether you're logged in
+    const account = isLoggedIn()
+        ? [footerLink("profile.html", "My profile"), footerLink("my-registrations.html", "My registrations"), footerLink("notifications.html", "Notifications")]
+        : [footerLink("login.html", "Log in"), footerLink("signup.html", "Sign up")];
+
     $("#footer").html(
-        '<footer class="mt-20 bg-ink text-canvas/80">' +
-            '<div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr_1fr]">' +
-                '<div><a href="' + pageUrl("index.html") + '" class="inline-flex items-center gap-2">' + logoMarkup(true) + "</a>" +
-                    '<p class="mt-4 max-w-xs">Events, announcements and city updates for everyone in Pretoria.</p></div>' +
-                footerColumn("Explore", explore.map(function (item) {
-                    const parts = item.split("|");
-                    return '<a class="hover:text-white hover:underline" href="' + pageUrl(parts[0]) + '">' + parts[1] + "</a>";
-                })) +
-                footerColumn("Help", [
-                    '<a class="hover:text-white hover:underline" href="mailto:help@jacarandacity.test">Contact the city</a>',
-                    '<a class="hover:text-white hover:underline" href="mailto:help@jacarandacity.test?subject=Accessibility">Accessibility</a>',
-                    '<a class="hover:text-white hover:underline" href="mailto:help@jacarandacity.test?subject=Question">FAQs</a>',
-                ]) +
-                footerColumn("Contact", [
-                    '<a class="hover:text-white hover:underline" href="mailto:help@jacarandacity.test">help@jacarandacity.test</a>',
-                    '<a class="hover:text-white hover:underline" href="tel:+27120000000">+27 12 000 0000</a>',
-                    "<span>Pretoria, Gauteng</span>",
-                ]) +
-            "</div>" +
-            '<div class="mx-auto flex max-w-7xl flex-col gap-2 border-t border-white/10 px-4 py-6 text-sm text-canvas/60 sm:flex-row sm:justify-between sm:px-6">' +
-                "<p>&copy; " + new Date().getFullYear() + " Jacaranda City. Student project.</p>" +
-                '<p>Hero photo: <a class="underline hover:text-white" href="https://unsplash.com/@kuhlebaloyi" rel="noopener" target="_blank">Kuhle Baloyi on Unsplash</a></p>' +
+        '<footer class="mt-20 overflow-hidden bg-ink text-canvas/80">' +
+            '<div class="mx-auto max-w-7xl px-4 pt-16 sm:px-6">' +
+                '<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr]">' +
+                    '<div>' +
+                        '<a href="' + pageUrl("index.html") + '" class="inline-flex items-center gap-2">' + logoMarkup(true) + "</a>" +
+                        '<p class="mt-4 max-w-xs">Events, announcements and city updates for everyone in Pretoria.</p>' +
+                        '<p class="mt-4 text-sm text-canvas/60">&copy; ' + new Date().getFullYear() + " Jacaranda City.<br>Built by Mitchell Barure.</p>" +
+                        '<p class="mt-1 text-sm text-canvas/60">Hero photo: <a class="underline hover:text-white" href="https://unsplash.com/@kuhlebaloyi" rel="noopener" target="_blank">Kuhle Baloyi on Unsplash</a></p>' +
+                    "</div>" +
+                    footerColumn("Explore", [
+                        footerLink("events.html", "Events"), footerLink("announcements.html", "Announcements"),
+                        footerLink("promos.html", "Promos"), footerLink("services.html", "Services"),
+                    ]) +
+                    footerColumn("Help", [
+                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test">Contact the city</a>',
+                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test?subject=Accessibility">Accessibility</a>',
+                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test?subject=Question">FAQs</a>',
+                    ]) +
+                    footerColumn("Account", account) +
+                    footerColumn("Contact", [
+                        '<a class="hover:text-white" href="mailto:help@jacarandacity.test">help@jacarandacity.test</a>',
+                        '<a class="hover:text-white" href="tel:+27120000000">+27 12 000 0000</a>',
+                        "<span>Pretoria, Gauteng</span>",
+                    ]) +
+                "</div>" +
+                // big wordmark that fades in from the top, just decoration
+                '<p class="mt-14 -mb-[0.18em] text-center bg-linear-to-b from-white/0 via-white/[0.06] to-white/[0.14] bg-clip-text text-[clamp(3rem,12.5vw,10.5rem)] leading-none font-extrabold tracking-tighter whitespace-nowrap text-transparent select-none" aria-hidden="true">Jacaranda City</p>' +
             "</div>" +
         "</footer>"
     );
 }
 
+function footerLink(href, label) {
+    return '<a class="hover:text-white" href="' + pageUrl(href) + '">' + label + "</a>";
+}
+
 function footerColumn(title, items) {
-    return '<div><h2 class="eyebrow text-jacaranda-light">' + title + '</h2><ul class="mt-4 space-y-3">' +
+    return '<div><h2 class="font-bold text-white">' + title + '</h2><ul class="mt-4 space-y-3">' +
         items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul></div>";
 }
 
