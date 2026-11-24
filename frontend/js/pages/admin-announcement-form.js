@@ -23,6 +23,7 @@ function loadForEdit() {
         .then(function (res) {
             const a = res.data;
             $("#title").val(a.title);
+            $("#transcript").val(a.transcript || "");
             setPublished(isLive(a));
             // the backend's update ignores a new file, so on edit the recording is fixed
             $("#drop-zone").prop("hidden", true);
@@ -60,6 +61,7 @@ function saveAnnouncement(e) {
     // multipart because of the audio. the backend reads the file from the "audio" field
     const data = new FormData();
     data.append("title", $("#title").val().trim());
+    data.append("transcript", $("#transcript").val().trim());
     data.append("published", String(isPublishedOn()));
     if (chosenFile) data.append("audio", chosenFile);
 

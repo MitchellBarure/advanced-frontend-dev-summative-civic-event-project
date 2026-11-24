@@ -58,6 +58,11 @@ function renderAnnouncement() {
     $("#wave").html(waveform(a.title, 70, "bg-white/25"));
     $("#fallback-link, #download-link").attr("href", a.audio_url);
     $("#audio").attr("src", a.audio_url);
+    // the transcript is optional, so keep the "none yet" message when it's empty
+    if (a.transcript) {
+        $("#transcript-text").text(a.transcript).prop("hidden", false);
+        $("#no-transcript").prop("hidden", true);
+    }
     renderAdminActions();
     applyRoleVisibility();
 

@@ -77,7 +77,7 @@ See [`frontend/README.md`](frontend/README.md) for the frontend structure and wh
 |---|---|---|
 | Account | Sign up (password strength meter), log in ("Keep me signed in"), edit name and email | Same, plus a profile link in the admin sidebar |
 | Events | Browse published events, search, filter by date/location, register/cancel, rate and review (once per event), My registrations | Create/edit/delete with image upload and a Published switch, see registrants |
-| Announcements | Listen to audio clips with a full player (seek, ±10s, speed, volume, keyboard shortcuts) | Upload audio, publish/unpublish, delete |
+| Announcements | Listen to audio clips with a full player (seek, ±10s, speed, volume, keyboard shortcuts) and read the transcript underneath | Upload audio with a transcript, publish/unpublish, delete |
 | Promos | Watch videos with captions on by default, transcript under the video | Upload video + caption text, publish/unpublish, delete |
 | Notifications | Bell with unread count, drawer, chat-style inbox, detail page with a link to the related item | Delete notifications (inbox, detail page or Admin → Notifications) |
 | Service requests | Report a problem and follow its status | Change the status of every request |
@@ -97,7 +97,7 @@ I only changed the backend where a bug blocked a core requirement (see the next 
 | **No route to create notifications**, so the "create broadcast notifications" admin action can't be built | Notifications are created automatically by the backend when events, announcements and promos are created or published. Admins can view, search and delete them in Admin → Notifications |
 | Disabling a user (`PATCH /users/:id/disable`) only sets `is_active = false`; login and the token check never look at it | The login page reads the profile right after logging in and signs disabled accounts straight back out with a message. This is a frontend check only: the API still accepts a disabled user's token |
 | The `read` flag on notifications is one value shared by everyone, with no endpoint to change it | Read/unread is kept per user in the browser (`jc_read_<user id>`) |
-| Announcements have no `transcript` or `duration_seconds` column | The length is read from the audio file; the detail page says when there's no transcript and offers an email link |
+| Announcements have no `duration_seconds` column | The length is read from the audio file itself |
 | Editing an announcement ignores a new audio file | The edit form only changes the title and status, with a note to create a new announcement for a new recording |
 | Creating a promo always publishes it | A promo saved as a draft is unpublished straight after it's created |
 | Creating an event, announcement or promo notifies residents even when it's saved as a draft | Residents can't open drafts (they get a "not found" page), but the notification still appears |
@@ -113,6 +113,16 @@ The brief asks for a published toggle, ratings on the event page and register/un
 | Only admins could list an event's feedback, so residents couldn't see reviews or the average rating | Any logged-in user can read it; emails are removed for non-admins | `src/routes/eventFeedback.routes.js`, `src/controllers/eventFeedback.controller.js` |
 | Deleting an event that had registrations crashed (foreign key error) | Remove its registrations first | `src/models/events.model.js` |
 | After cancelling, a user could never register again (409) | A cancelled registration gets re-activated | `src/models/eventRegistrations.model.js` |
+
+### One thing I added: announcement transcripts
+
+Honestly, an audio-only announcement isn't accessible. If you can't hear it, you just miss the message, and the backend had nowhere to keep a written version. So I added one optional `transcript` column to announcements:
+
+- `backend/migrations/002_add_announcement_transcript.sql` adds the column. It's safe to run more than once, and `npm run db:setup` runs it every time, so it works on a fresh database and on one you already have.
+- `src/models/announcements.model.js` and `src/controllers/announcements.controller.js` save it on create and edit (marked `FIX (frontend project)` like the others).
+- On the frontend, the announcement form has a Transcript box, the announcement page shows the text under the player, and search looks inside transcripts too.
+
+It's optional, so older announcements without one still work. The page just says there's no transcript yet and gives an email link.
 
 I also replaced the `db:setup` / `db:seed` scripts with small Node scripts (`backend/scripts/`) because the originals needed `psql` on the PATH, used the wrong env variable name and pointed at a seed file that didn't exist.
 

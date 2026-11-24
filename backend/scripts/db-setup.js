@@ -51,6 +51,11 @@ async function runMigration() {
         await client.query(sql);
         console.log('✔ Ran migrations/001_create_tables.sql');
     }
+
+    // FIX (frontend project): announcement transcripts. This one is safe to re-run, so it always runs
+    const transcriptSql = fs.readFileSync(path.join(process.cwd(), 'migrations', '002_add_announcement_transcript.sql'), 'utf8');
+    await client.query(transcriptSql);
+    console.log('✔ Ran migrations/002_add_announcement_transcript.sql');
     await client.end();
 }
 

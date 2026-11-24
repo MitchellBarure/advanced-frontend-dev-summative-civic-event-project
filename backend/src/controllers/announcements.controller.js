@@ -41,7 +41,8 @@ export const getAnnouncementById = async (req, res, next) => {
  */
 export const createAnnouncement = async (req, res, next) => {
     try {
-        const { title, published = true } = req.body;
+        // FIX (frontend project): optional transcript sent with the form
+        const { title, published = true, transcript } = req.body;
 
         // Ensure file was uploaded
         if (!req.file) {
@@ -60,6 +61,7 @@ export const createAnnouncement = async (req, res, next) => {
             title,
             audio_url,
             published,
+            transcript: transcript && transcript.trim() ? transcript.trim() : null,
         });
 
         // Create a broadcast notification for all users

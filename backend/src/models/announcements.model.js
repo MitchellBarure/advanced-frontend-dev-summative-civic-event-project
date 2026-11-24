@@ -16,13 +16,14 @@ export const findById = async (id) => {
 };
 
 export const create = async (data) => {
-    const { title, audio_url, published = true } = data;
+    // FIX (frontend project): also saves the optional transcript
+    const { title, audio_url, published = true, transcript = null } = data;
 
     const res = await db.query(
-        `INSERT INTO announcements (title, audio_url, published)
-         VALUES ($1, $2, $3)
+        `INSERT INTO announcements (title, audio_url, published, transcript)
+         VALUES ($1, $2, $3, $4)
          RETURNING *`,
-        [title, audio_url, published]
+        [title, audio_url, published, transcript]
     );
 
     return res.rows[0];
@@ -41,10 +42,12 @@ export const update = async (id, data) => {
          SET title = $1,
              audio_url = $2,
              published = $3,
+             transcript = $4,
              updated_at = NOW()
-         WHERE id = $4
+         WHERE id = $5
          RETURNING *`,
-        [updated.title, updated.audio_url, updated.published, id]
+        // FIX (frontend project): transcript can be edited too (an empty box clears it)
+        [updated.title, updated.audio_url, updated.published, updated.transcript || null, id]
     );
 
     return res.rows[0];

@@ -70,7 +70,7 @@ function runSearch() {
     }
 
     const events = searchData.events.filter(function (e) { return matches([e.title, e.description, e.location], words); }).sort(byStartDate);
-    const announcements = searchData.announcements.filter(function (a) { return matches([a.title], words); });
+    const announcements = searchData.announcements.filter(function (a) { return matches([a.title, a.transcript], words); });
     const promos = searchData.promos.filter(function (p) { return matches([p.title, p.description, p.caption_text], words); });
     const total = events.length + announcements.length + promos.length;
 
