@@ -108,7 +108,7 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 
 ## Audio and video
 
-- **Announcements:** one shared `Audio` object, so only one clip plays at a time. The waveform is decoration (CSS bars, same shape per title) that fills in as the clip plays. The detail page has its own controls: play, seek, ±10s, speed, volume, and Space / ← → shortcuts. Durations are read from the file because the backend doesn't store them.
+- **Announcements:** one shared `Audio` object, so only one clip plays at a time. The waveform is decoration (CSS bars, same shape per title) that fills in as the clip plays. The detail page has its own controls: play, seek, ±10s, speed, volume, and Space / ← → shortcuts. Durations are read from the file because the backend doesn't store them. The written **transcript** (an optional field I added to the backend) shows under the player and is filled in on the announcement form.
 - **Promos:** the backend stores captions as plain text (`caption_text`), so `captionsToVtt()` turns them into a WebVTT track (one cue per sentence, spread over the video length) and the track is **on by default**. Admins can also paste a full WEBVTT file. The same text is shown as the transcript under the video.
 - **Video thumbnails load lazily:** a promo card only starts downloading its video when it's about to scroll into view (`lazyLoadVideos()` with an IntersectionObserver), and that one download gives both the first frame and the duration badge.
 - **Promos are cached** in sessionStorage for 5 minutes (`getPromos()` in `media-common.js`), so moving between the promo pages doesn't refetch the list. Creating, editing, publishing, unpublishing or deleting a promo clears the cache, so the change shows straight away.
@@ -150,3 +150,24 @@ Login has a **"Keep me signed in"** checkbox. Unchecked → `sessionStorage` (go
 Known backend limits I work around: a new promo is always created as published, so a draft gets unpublished right after; editing an announcement ignores a new audio file, so the edit form only changes the title and status.
 
 Upload limits (checked in the browser before uploading): event image ≤ 2 MB (jpg/png/gif), promo video ≤ 8 MB (mp4/mov/avi/mkv), announcement audio ≤ 5 MB (mp3/wav/m4a/ogg).
+
+## Credits
+
+Photos and videos are free-licence stock (Unsplash and Pexels licences). Audio announcements were recorded by Mitchell Barure.
+
+| Where it's used | Type | Creator | Site |
+|---|---|---|---|
+| Landing hero | Photo | [Kuhle Baloyi](https://unsplash.com/@kuhlebaloyi) | Unsplash |
+| Landing "The Jacaranda City" panel (`assets/images/city-strip.jpg`) | Photo | [Khaya Motsa](https://www.pexels.com/photo/urban-street-view-in-eswatini-with-vehicles-and-shops-40240092/) | Pexels |
+| Event: Community Clean-Up Day | Photo | [RDNE Stock project](https://www.pexels.com/photo/6647020/) | Pexels |
+| Event: Town Hall: City Budget 2027 | Photo | [Matheus Amaral](https://www.pexels.com/photo/35064539/) | Pexels |
+| Event: Free Health Screening | Photo | [Nappy](https://unsplash.com/photos/a-doctor-checking-a-patients-blood-pressure-dcBO4nt4MRE) | Unsplash |
+| Event: Jacaranda Night Market | Photo | [Chris Slupski](https://unsplash.com/photos/tCM6cQjIQ7Q) | Unsplash |
+| Event: Draft: Winter Market | Photo | [Erik Mclean](https://www.pexels.com/photo/35038770/) | Pexels |
+| Promo: Jacaranda season 2026 | Video | [Diana Reyes](https://www.pexels.com/video/aerial-view-of-jacaranda-lined-street-39928113/) | Pexels |
+| Promo: Fix-it week in Mamelodi | Video | [Pressmaster](https://www.pexels.com/video/group-of-people-picking-up-trash-in-a-park-3209571/) | Pexels |
+| Promo: Library late nights | Video | [Tima Miroshnichenko](https://www.pexels.com/video/students-sitting-at-the-table-9569475/) | Pexels |
+| Home banner jacaranda tree (`assets/images/jacaranda-tree.svg`) | Illustration | Mitchell Barure | My own drawing |
+| Announcements (3 clips) | Audio | Mitchell Barure | Own recordings |
+
+Icons: [Lucide](https://lucide.dev) (MIT) via Iconify. Fonts: Gloock and Plus Jakarta Sans (SIL Open Font License).
