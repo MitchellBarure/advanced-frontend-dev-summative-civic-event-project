@@ -105,12 +105,7 @@ function findPromo(id) {
 // admin only (button is only rendered for admins)
 function togglePublish(id) {
     const p = findPromo(id);
-    setPublishState("promos", p, !isLive(p))
-        .then(function (updated) {
-            Object.assign(p, updated);
-            renderPromos();
-        })
-        .catch(function (err) { showToast(err.message, "error"); });
+    setPublishState("promos", p, !isLive(p), renderPromos);
 }
 
 // admin only

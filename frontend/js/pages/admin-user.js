@@ -56,9 +56,7 @@ function renderUser() {
 }
 
 function toggleActive() {
-    const $switch = $(this).prop("disabled", true);
-    setAccountActive(viewedUser, !viewedUser.is_active).then(function (updated) {
-        if (updated) viewedUser = updated;
+    setAccountActive(viewedUser, !viewedUser.is_active, function () {
         renderUser();
         $("#active-switch .toggle-switch").trigger("focus");
     });

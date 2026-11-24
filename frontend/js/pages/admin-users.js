@@ -57,9 +57,7 @@ function renderUsers() {
 
 function toggleUser($switch) {
     const user = users.find(function (u) { return u.id === $switch.data("id"); });
-    $switch.prop("disabled", true);
-    setAccountActive(user, !user.is_active).then(function (updated) {
-        if (updated) Object.assign(user, updated);
+    setAccountActive(user, !user.is_active, function () {
         renderUsers();
         $("#user-rows .toggle-switch[data-id='" + user.id + "']").trigger("focus");
     });

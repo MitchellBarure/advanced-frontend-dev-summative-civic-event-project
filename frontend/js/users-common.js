@@ -16,8 +16,9 @@ function avatar(name, size) {
         escapeHtml(initialsOf(name)) + "</span>";
 }
 
-// admin only: turn an account on or off. turning off asks first. resolves with the updated user, or null
-function setAccountActive(user, active) {
+// admin only: turn an account on or off. turning off asks first.
+// optimistic: the switch flips straight away (redraw), and flips back if the server says no
+function setAccountActive(user, active, redraw) {
     const ask = active ? Promise.resolve(true) : confirmDialog({
         title: "Turn off " + user.full_name + "'s account?",
         message: "Their account is marked as disabled and they're stopped at login. You can turn it back on any time.",
@@ -26,15 +27,17 @@ function setAccountActive(user, active) {
         danger: true,
     });
     return ask.then(function (ok) {
-        if (!ok) return null;
+        if (!ok) return;
+        user.is_active = active;
+        redraw();
         return apiPatch("/users/" + user.id + (active ? "/enable" : "/disable"))
-            .then(function (res) {
+            .then(function () {
                 showToast(active ? "Account enabled." : "Account disabled.", "success");
-                return Object.assign({}, user, res.data || {}, { is_active: active });
             })
             .catch(function (err) {
-                showToast(err.message, "error");
-                return null;
+                user.is_active = !active;
+                redraw();
+                showToast("Couldn't change " + user.full_name + "'s account. " + err.message, "error");
             });
     });
 }

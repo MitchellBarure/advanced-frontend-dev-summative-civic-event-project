@@ -100,13 +100,23 @@ function toggleClip($button, url, onTime) {
 }
 
 /* admin only helpers: publish toggle and delete. the backend checks the role on every call */
-function setPublishState(kind, item, publish) {
+
+// optimistic: show the new state straight away (redraw), put it back if the request fails
+function setPublishState(kind, item, publish, redraw) {
     const path = "/" + kind + "/" + item.id + (publish ? "/publish" : "/unpublish");
-    return apiPatch(path).then(function (res) {
-        if (kind === "promos") clearPromoCache();
-        showToast(publish ? "Published. Residents got a notification." : "Unpublished. Residents can't see it now.", "success");
-        return res.data;
-    });
+    item.published = publish;
+    redraw();
+    return apiPatch(path)
+        .then(function (res) {
+            if (kind === "promos") clearPromoCache();
+            Object.assign(item, res.data || {});
+            showToast(publish ? "Published. Residents got a notification." : "Unpublished. Residents can't see it now.", "success");
+        })
+        .catch(function (err) {
+            item.published = !publish;
+            redraw();
+            showToast("Couldn't " + (publish ? "publish" : "unpublish") + " that. " + err.message, "error");
+        });
 }
 
 function deleteMedia(kind, item) {

@@ -79,12 +79,7 @@ function renderAdminActions() {
         '<button type="button" id="delete-promo" class="btn-danger">' + icon("trash-2", "size-4") + "Delete</button>"
     );
     $("#publish-toggle").on("click", function () {
-        setPublishState("promos", promo, !isLive(promo))
-            .then(function (updated) {
-                Object.assign(promo, updated);
-                renderAdminActions();
-            })
-            .catch(function (err) { showToast(err.message, "error"); });
+        setPublishState("promos", promo, !isLive(promo), renderAdminActions);
     });
     $("#delete-promo").on("click", function () {
         deleteMedia("promos", promo).then(function (deleted) {

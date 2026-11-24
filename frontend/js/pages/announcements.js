@@ -139,12 +139,7 @@ function findAnnouncement(id) {
 function togglePublish(id) {
     const a = findAnnouncement(id);
     if (sharedAudio) sharedAudio.pause(); // the cards get redrawn
-    setPublishState("announcements", a, !isLive(a))
-        .then(function (updated) {
-            Object.assign(a, updated);
-            renderAnnouncements();
-        })
-        .catch(function (err) { showToast(err.message, "error"); });
+    setPublishState("announcements", a, !isLive(a), renderAnnouncements);
 }
 
 // admin only
