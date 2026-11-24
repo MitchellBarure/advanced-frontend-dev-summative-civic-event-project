@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search · Jacaranda City</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/output.css">
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <main id="main" class="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+    <h1 class="text-4xl tracking-tight">Search</h1>
+    <p class="mt-2 text-lg text-muted">Events, announcements and promos in one place.</p>
+
+    <form id="search-form" role="search" class="relative mt-6" aria-label="Search the site">
+      <label for="search-input" class="sr-only">Search events, announcements and promos</label>
+      <span class="pointer-events-none absolute inset-y-0 left-5 flex items-center text-muted"><span data-icon="search" class="size-5"></span></span>
+      <input id="search-input" name="q" type="search" autocomplete="off" placeholder="Try “market”, “water” or “Hatfield”" class="input min-h-14 rounded-full pl-13 text-lg">
+    </form>
+
+    <p id="search-summary" class="eyebrow mt-6 text-muted" aria-live="polite">&nbsp;</p>
+    <div id="search-results" class="mt-4 space-y-10"></div>
+  </main>
+
+  <div id="footer"></div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/icons.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/events-common.js"></script>
+  <script src="js/media-common.js"></script>
+  <script src="js/pages/search.js"></script>
+</body>
+</html>

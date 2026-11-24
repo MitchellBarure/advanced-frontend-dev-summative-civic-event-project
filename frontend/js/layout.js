@@ -30,10 +30,10 @@ function navLink(link, mobile) {
 
 function searchForm(id) {
     return (
-        '<form role="search" action="' + pageUrl("events.html") + '" class="relative">' +
-            '<label for="' + id + '" class="sr-only">Search events</label>' +
+        '<form role="search" action="' + pageUrl("search.html") + '" class="relative">' +
+            '<label for="' + id + '" class="sr-only">Search events, announcements and promos</label>' +
             '<span class="pointer-events-none absolute inset-y-0 left-4 flex items-center text-muted">' + icon("search", "size-4") + "</span>" +
-            '<input id="' + id + '" name="q" type="search" placeholder="Search events" class="input min-h-10 rounded-full py-2 pl-10 text-sm">' +
+            '<input id="' + id + '" name="q" type="search" placeholder="Search everything" class="input min-h-10 rounded-full py-2 pl-10 text-sm">' +
         "</form>"
     );
 }
