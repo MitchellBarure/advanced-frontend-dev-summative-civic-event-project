@@ -217,7 +217,9 @@ function bindPasswordToggles() {
     });
 }
 
-// once someone starts fixing a field, take its error away
-$(document).on("input change", "input[aria-invalid], textarea[aria-invalid], select[aria-invalid]", function () {
+// once someone starts fixing a field, take its error away.
+// not file inputs: their own change handler checks the file and sets the error, and this
+// would wipe it straight away (the "image too big" message never showed because of that)
+$(document).on("input change", "input[aria-invalid]:not([type=file]), textarea[aria-invalid], select[aria-invalid]", function () {
     setFieldError($(this), "");
 });
