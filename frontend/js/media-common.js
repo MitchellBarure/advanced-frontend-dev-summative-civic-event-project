@@ -178,22 +178,38 @@ function captionsToTranscript(text) {
 function videoThumb(promo, big) {
     return (
         '<div class="relative aspect-video overflow-hidden bg-ink">' +
-            '<video class="size-full object-cover" src="' + escapeHtml(promo.video_url) + '#t=0.5" preload="metadata" muted playsinline aria-hidden="true" tabindex="-1"></video>' +
+            // no src yet: lazyLoadVideos() adds it when the card scrolls into view
+            '<video class="lazy-video size-full object-cover" data-src="' + escapeHtml(promo.video_url) + '#t=0.5" preload="none" muted playsinline aria-hidden="true" tabindex="-1"></video>' +
             '<span class="absolute inset-0 bg-linear-to-t from-jacaranda-deep/70 via-transparent to-transparent"></span>' +
             '<span class="absolute top-1/2 left-1/2 grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-jacaranda shadow-lg transition group-hover:scale-110 group-hover:bg-white ' + (big ? "size-20" : "size-14") + '">' +
                 icon("play", "*:fill-current translate-x-0.5 " + (big ? "size-8" : "size-6")) + "</span>" +
             (promo.caption_text ? '<span class="absolute bottom-3 left-3 rounded-md bg-ink/85 px-2 py-0.5 text-xs font-bold text-white">CC<span class="sr-only"> captions available</span></span>' : "") +
-            '<span class="absolute right-3 bottom-3 rounded-md bg-ink/85 px-2 py-0.5 text-xs font-bold text-white tabular-nums" data-video-duration="' + escapeHtml(promo.video_url) + '" hidden></span>' +
+            '<span class="video-duration absolute right-3 bottom-3 rounded-md bg-ink/85 px-2 py-0.5 text-xs font-bold text-white tabular-nums" hidden></span>' +
         "</div>"
     );
 }
 
-// fill the duration badges once the video metadata loads
-function fillVideoDurations($root) {
-    $root.find("[data-video-duration]").each(function () {
-        const $badge = $(this);
-        readDuration($badge.data("video-duration"), "video", function (d) { $badge.text(formatSeconds(d)).prop("hidden", false); });
-    });
+// lazy loading: a thumbnail only starts downloading its video when it's about to scroll into
+// view. the same download gives the first frame and the length for the duration badge
+function lazyLoadVideos($root) {
+    const videos = $root.find("video.lazy-video[data-src]").toArray();
+    function load(video) {
+        const $badge = $(video).closest("div").find(".video-duration");
+        video.addEventListener("loadedmetadata", function () { $badge.text(formatSeconds(video.duration)).prop("hidden", false); });
+        video.preload = "metadata";
+        video.src = video.dataset.src;
+        video.removeAttribute("data-src");
+    }
+    // old browsers without IntersectionObserver just load them all
+    if (!("IntersectionObserver" in window)) { videos.forEach(load); return; }
+    const watcher = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            watcher.unobserve(entry.target);
+            load(entry.target);
+        });
+    }, { rootMargin: "200px" });
+    videos.forEach(function (video) { watcher.observe(video); });
 }
 
 /* promos cache: the list is kept in sessionStorage for 5 minutes so moving between the promo

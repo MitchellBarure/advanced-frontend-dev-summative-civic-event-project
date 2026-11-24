@@ -107,7 +107,7 @@ function loadMorePromos() {
                     videoThumb(p, false) +
                     '<p class="p-4 font-bold group-hover:text-jacaranda">' + escapeHtml(p.title) + "</p></a>";
             }).join(""));
-            fillVideoDurations($("#more-promos"));
+            lazyLoadVideos($("#more-promos"));
         })
         .catch(function () { $("#more-promos").closest("section").prop("hidden", true); });
 }

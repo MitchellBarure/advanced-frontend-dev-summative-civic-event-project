@@ -53,7 +53,7 @@ function renderPromos() {
             : "")
     );
     applyRoleVisibility($list);
-    fillVideoDurations($list);
+    lazyLoadVideos($list);
 }
 
 function featuredPromo(p) {
